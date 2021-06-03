@@ -17,6 +17,12 @@ h1{
   left: 10px;
   color: white;
 	font-size: 45px;
+  float: left;
+}
+img {
+  max-width: 3%;
+  height: auto;
+  padding-left: 20px;
 }
 
 .game-container{
