@@ -1,0 +1,12 @@
+<main class="game-container">
+  <p class="game-box">Our Game Will be here</p>
+</main>
+
+<div class="score-grid">
+  <div id="name-header">Player</div>
+  <div id="score-header">Score</div>
+  
+  {{#each players}}
+    {{> table}}
+  {{/each}}
+</div>
