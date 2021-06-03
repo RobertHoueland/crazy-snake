@@ -19,10 +19,21 @@ h1{
 	font-size: 45px;
   float: left;
 }
-img {
+img{
   max-width: 3%;
   height: auto;
   padding-left: 20px;
+}
+.scores-link{
+  position: relative;
+  right: 10px;
+  color: white;
+	font-size: 45px;
+  float: right;
+}
+a{
+  color: white;
+  text-decoration: none;
 }
 
 .game-container{
