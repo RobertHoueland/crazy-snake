@@ -37,6 +37,7 @@ a{
 }
 
 .game-container{
+  background-color: #add8e6;
   display: flex;
   border: 1px solid black;
   border-radius: 3px;
@@ -55,6 +56,8 @@ a{
   justify-content: left;
   border: 1px solid #686ee2;
   border-radius: 2px;
+  margin-top: 20px;
+  margin-bottom: 100px;
 }
 .score-grid > *{
   font-size: 20px;
