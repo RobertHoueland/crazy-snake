@@ -22,17 +22,22 @@ h1{
 .game-container{
   display: flex;
   border: 1px solid black;
+  border-radius: 3px;
   justify-content: center;
   margin: 5% 10%;
   min-height: 300px;
 }
 
 .score-grid{
+  position: relative;
+  left: 10%;
   display: grid;
   grid-template-columns: 100px 100px;
   grid-template-rows: 50px;
+  max-width: 200px;
   justify-content: left;
-  margin-left: 10%
+  border: 1px solid #686ee2;
+  border-radius: 2px;
 }
 .score-grid > *{
   font-size: 20px;
