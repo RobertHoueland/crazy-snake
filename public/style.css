@@ -37,6 +37,7 @@ a{
 }
 
 .game-container{
+  background-color: #add8e6;
   display: flex;
   border: 1px solid black;
   border-radius: 3px;
