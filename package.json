@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/osu-cs290-sp21/final-project-crazy-snake.git"
   },
-  "author": "Phillip Dinh <dinhph@oregonstate.edu>",
+  "author": "Phillip Dinh <dinhph@oregonstate.edu>, Robert Houeland <houelanr@oregonstate.edu>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/osu-cs290-sp21/final-project-crazy-snake/issues"
