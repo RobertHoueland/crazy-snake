@@ -1,6 +1,8 @@
+{{#if displayAll}}
 <main class="game-container">
-  <p class="game-box">Our Game Will be here</p>
+    <canvas class="game-box" width="500" height="500">
 </main>
+{{/if}}
 
 <div class="score-grid">
   <div id="name-header">Player</div>
@@ -11,7 +13,7 @@
   {{/each}}
 </div>
 
-
+{{#if displayAll}}
 <div id="modal-backdrop" class="hidden"></div>
 <div id="enter-name-modal" class="hidden">
   <div class="modal-dialog">
@@ -33,3 +35,4 @@
 
   </div>
 </div>
+{{/if}}

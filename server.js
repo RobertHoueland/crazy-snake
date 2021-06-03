@@ -15,11 +15,11 @@ app.use(express.static("public"))
 
 app.get("/", function (req, res, next) {
     //Add if data not good later
-    res.status(200).render("homePage", { players: scoreData })
+    res.status(200).render("homePage", { displayAll: true, players: scoreData })
 })
 
 app.get("/scores", function (req, res, next) {
-    res.status(200).render("table")
+    res.status(200).render("homePage", { players: scoreData })
 })
 
 app.get("*", function (req, res, next) {
