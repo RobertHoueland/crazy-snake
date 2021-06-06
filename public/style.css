@@ -1,52 +1,57 @@
-body{
-	margin: 0px;
-	padding: 0px;
+body {
+  margin: 0px;
+  padding: 0px;
   font-family: 'Abel', sans-serif;
   background-color: rgb(240, 240, 240);
 }
-header{
+header {
   background-color: #e04b5a;
   margin: 0px;
   padding: 5px;
 }
-h1{
-	margin: 0px;
+h1 {
+  margin: 0px;
 }
-.site-title{
+.site-title {
   position: relative;
   left: 10px;
   color: white;
-	font-size: 45px;
+  font-size: 45px;
   float: left;
 }
-img{
+img {
   max-width: 3%;
   height: auto;
   padding-left: 20px;
 }
-.scores-link{
+.scores-link {
   position: relative;
   right: 10px;
   color: white;
-	font-size: 45px;
+  font-size: 45px;
   float: right;
 }
-a{
+a {
   color: white;
   text-decoration: none;
 }
 
-.game-container{
+.instructions {
+  font-size: 25px;
+  font-weight: bold;
+  padding-left: 20px;
+}
+.game-container {
   background-color: #add8e6;
   display: flex;
   border: 1px solid black;
   border-radius: 3px;
   justify-content: center;
-  margin: 5% 10%;
+  margin: 2% 10%;
   min-height: 300px;
 }
 
-.score-grid{
+.score-grid {
   position: relative;
   left: 10%;
   display: grid;
@@ -59,13 +64,14 @@ a{
   margin-top: 20px;
   margin-bottom: 100px;
 }
-.score-grid > *{
+.score-grid > * {
   font-size: 20px;
   font-weight: normal;
   background-color: white;
 }
 
-#name-header, #score-header{
+#name-header,
+#score-header {
   grid-column: span 1;
   background-color: #686ee2;
   font-size: 25px;
