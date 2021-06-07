@@ -16,6 +16,15 @@ var snakeFood = {
 var score = 0
 var direction
 
+function collision(head, arr) {
+    for (i = 0; i < arr.length; i++) {
+        if (head.x == arr[i].x && head.y == arr[i].y) {
+            return true
+        }
+    }
+    return false
+}
+
 function drawSnake() {
     for (i = 0; i < snakeArr.length; i++) {
         if (i == 0) {
