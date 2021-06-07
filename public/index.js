@@ -11,8 +11,8 @@ snakeArr[0] = { x: 9 * grid, y: 10 * grid }
 snakeArr[1] = { x: 8 * grid, y: 10 * grid }
 
 var snakeFood = {
-    x: Math.floor(Math.random() * 17 + 1) * grid,
-    y: Math.floor(Math.random() * 15 + 3) * grid,
+    x: Math.floor(Math.random() * 15 + 1) * grid,
+    y: Math.floor(Math.random() * 13 + 3) * grid,
 }
 var score = 0
 var direction
@@ -65,8 +65,8 @@ function drawSnake() {
         score++
         //eat.play()
         snakeFood = {
-            x: Math.floor(Math.random() * 17 + 1) * grid,
-            y: Math.floor(Math.random() * 15 + 3) * grid,
+            x: Math.floor(Math.random() * 15 + 1) * grid,
+            y: Math.floor(Math.random() * 13 + 3) * grid,
         }
     } else {
         // Remove tail
@@ -81,9 +81,9 @@ function drawSnake() {
 
     if (
         snakeX < grid ||
-        snakeX > 17 * grid ||
+        snakeX > 15 * grid ||
         snakeY < 3 * grid ||
-        snakeY > 17 * grid ||
+        snakeY > 15 * grid ||
         collision(newHead, snakeArr)
     ) {
         clearInterval(game)
