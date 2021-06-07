@@ -37,6 +37,7 @@ a {
 }
 
 .instructions {
+  font-family: Helvetica;
   font-size: 25px;
   font-weight: bold;
   padding-left: 20px;
@@ -49,6 +50,11 @@ a {
   justify-content: center;
   margin: 2% 10%;
   min-height: 300px;
+}
+.current-score {
+  font-family: Helvetica;
+  font-size: 35px;
+  text-align: center;
 }
 
 .score-grid {
