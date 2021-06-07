@@ -1,5 +1,6 @@
 var gameCanvas = document.querySelector(".game-box")
 var canvasContext = gameCanvas.getContext("2d")
+var currentScore = document.querySelector(".current-score")
 var foodIcon = new Image()
 foodIcon.src = "/green_square.png"
 canvasContext.drawImage(foodIcon, 100, 200, 20, 20)
@@ -90,9 +91,7 @@ function drawSnake() {
 
     snakeArr.unshift(newHead)
 
-    canvasContext.fillStyle = "white"
-    canvasContext.font = "45px Arial"
-    canvasContext.fillText(score, 2 * grid, 1.6 * grid)
+    currentScore.textContent += score
 }
 
 function moveSnake(event) {
