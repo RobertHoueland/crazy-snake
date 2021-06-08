@@ -200,6 +200,7 @@ function closeModal() {
     /* clear board and restart game */
     canvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
     direction = "right"
-    // DELETE SNAKE
+    score = 0
+    snakeArr = []
     document.addEventListener("keydown", startGame)
 }
