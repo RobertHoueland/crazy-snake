@@ -8,7 +8,6 @@
 <main class="game-container">
   <canvas class="game-box" width="512" height="512">
 </main>
-{{/if}}
 
 <div class="score-grid">
   <div id="name-header">Player</div>
@@ -19,7 +18,6 @@
   {{/each}}
 </div>
 
-{{#if displayAll}}
 <div id="modal-backdrop" class="hidden"></div>
 <div id="enter-name-modal" class="hidden">
   <div class="modal-dialog">
@@ -40,6 +38,23 @@
       <button type="button" class="modal-accept-button">Accept</button>
     </div>
 
+  </div>
+</div>
+
+<div id="modal-backdrop" class="hidden"></div>
+<div id="game-over-modal" class="hidden">
+  <div id="game-over-modal-dialog" class="modal-dialog">
+
+    <div id="game-over-modal-header" class="modal-header">
+      <h3>Game Over</h3>
+      <button type="button" class="modal-close-button">&times;</button>
+    </div>
+
+    <div id="game-over-modal-body" class="modal-body">
+      <p class="score-side-tile">Score:</p>
+      <p class="gameScore"></p>
+    </div>
+    
   </div>
 </div>
 {{/if}}
