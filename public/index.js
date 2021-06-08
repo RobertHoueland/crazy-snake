@@ -14,33 +14,10 @@ var score = 0
 var direction
 var game
 
-/* starting location for snake head and tail */
-snakeArr[0] = { x: 5 * grid, y: 8 * grid }
-snakeArr[1] = { x: 4 * grid, y: 8 * grid }
-snakeArr[2] = { x: 3 * grid, y: 8 * grid }
-
-closeButton.addEventListener("click", closeModal)
-
-function closeModal() {
-    modalBackdrop.classList.add("hidden")
-    gameOverModal.classList.add("hidden")
-}
-
 /* random location for food */
-for (i = 0; i < snakeArr.length; i++) {
-    var snakeFood = {
-        x: Math.floor(Math.random() * 15 + 1) * grid,
-        y: Math.floor(Math.random() * 13 + 3) * grid,
-    }
-    /* check if snake food is on tail */
-    if (snakeFood.x == snakeArr[i].x) {
-        snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
-    }
-    if (snakeFood.y == snakeArr[i].y) {
-        snakeFood.y = Math.floor(Math.random() * 13 + 3) * grid
-    } else {
-        break
-    }
+var snakeFood = {
+    x: Math.floor(Math.random() * 15 + 1) * grid,
+    y: Math.floor(Math.random() * 13 + 3) * grid,
 }
 
 function moveSnake(event) {
@@ -85,6 +62,10 @@ function endSnake(head, arr) {
 /* draw snake every __ms (ms is speed of snake) */
 document.addEventListener("keydown", startGame)
 function startGame(event) {
+    /* starting location for snake head and tail */
+    snakeArr[0] = { x: 5 * grid, y: 8 * grid }
+    snakeArr[1] = { x: 4 * grid, y: 8 * grid }
+    snakeArr[2] = { x: 3 * grid, y: 8 * grid }
     var key = event.keyCode
     /* set difficulty of snake speed */
     if (key == 49) {
@@ -117,6 +98,7 @@ function startGame(event) {
     }
 }
 
+/* Runs game */
 function drawSnake() {
     if (direction == undefined) {
         direction = "right"
@@ -204,4 +186,15 @@ function drawSnake() {
 
     /* update score on page */
     currentScore.textContent = "Current Score: " + score
+}
+
+closeButton.addEventListener("click", closeModal)
+
+function closeModal() {
+    modalBackdrop.classList.add("hidden")
+    gameOverModal.classList.add("hidden")
+    instructions.classList.remove("hidden")
+    /* clear board and restart game */
+    canvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
+    document.addEventListener("keydown", startGame)
 }
