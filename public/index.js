@@ -1,6 +1,7 @@
 var gameCanvas = document.querySelector(".game-box")
 var canvasContext = gameCanvas.getContext("2d")
 var currentScore = document.querySelector(".current-score")
+var instructions = document.querySelector(".instructions")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
 var score = 0
@@ -12,13 +13,12 @@ snakeArr[1] = { x: 4 * grid, y: 8 * grid }
 snakeArr[2] = { x: 3 * grid, y: 8 * grid }
 
 /* random location for food */
-
-/* check if snake food is on tail */
 for (i = 0; i < snakeArr.length; i++) {
     var snakeFood = {
         x: Math.floor(Math.random() * 15 + 1) * grid,
         y: Math.floor(Math.random() * 13 + 3) * grid,
     }
+    /* check if snake food is on tail */
     if (snakeFood.x == snakeArr[i].x) {
         snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
     }
@@ -59,7 +59,7 @@ function moveSnake(event) {
     }
 }
 
-function collision(head, arr) {
+function endSnake(head, arr) {
     for (i = 0; i < arr.length; i++) {
         if (head.x == arr[i].x && head.y == arr[i].y) {
             return true
@@ -90,7 +90,7 @@ function drawSnake() {
         canvasContext.fillRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
 
         canvasContext.strokeStyle = "Blue"
-        canvasContext.strokeRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
+        // canvasContext.strokeRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
 
         /* delete tail of snake as it moves */
         var tail = snakeArr[snakeArr.length - 1]
@@ -120,7 +120,7 @@ function drawSnake() {
         snakeY += grid
     }
 
-    // if the snake eats the food
+    /* if snake eats the food */
     if (snakeX == snakeFood.x && snakeY == snakeFood.y) {
         canvasContext.clearRect(snakeFood.x, snakeFood.y, grid, grid)
         score++
@@ -145,7 +145,7 @@ function drawSnake() {
     }
 
     /* add new head */
-    var newHead = {
+    var snakeHead = {
         x: snakeX,
         y: snakeY,
     }
@@ -156,29 +156,24 @@ function drawSnake() {
         snakeX > 15 * grid ||
         snakeY < 0 ||
         snakeY > 15 * grid ||
-        collision(newHead, snakeArr)
+        endSnake(snakeHead, snakeArr)
     ) {
         //death
         clearInterval(game)
     }
 
-    snakeArr.unshift(newHead)
+    snakeArr.unshift(snakeHead)
 
     /* update score on page */
     currentScore.textContent = "Current Score: " + score
 }
 
-var instructions = document.querySelector('.instructions')
-// Draw snake every 150ms (ms is speed of snake)
 document.addEventListener("keydown", startGame)
-// draw snake every 150ms (ms is speed of snake)
-
+/* draw snake every 150ms (ms is speed of snake) */
 var game
-function startGame(){
-  instructions.classList.add("hidden")
-  game = setInterval(drawSnake, 150)
-  document.removeEventListener("keydown", startGame)
-  document.addEventListener("keydown", moveSnake)
-  
+function startGame() {
+    instructions.classList.add("hidden")
+    game = setInterval(drawSnake, 125)
+    document.removeEventListener("keydown", startGame)
+    document.addEventListener("keydown", moveSnake)
 }
-
