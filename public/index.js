@@ -75,8 +75,6 @@ function drawSnake() {
     var snakeX = snakeArr[0].x
     var snakeY = snakeArr[0].y
 
-    console.log(direction, snakeX, snakeY)
-
     // Check direction
     if (direction == "left") {
         snakeX -= grid
@@ -90,8 +88,6 @@ function drawSnake() {
     if (direction == "down") {
         snakeY += grid
     }
-
-    console.log(direction, snakeX, snakeY)
 
     // if the snake eats the food
     if (snakeX == snakeFood.x && snakeY == snakeFood.y) {
@@ -111,11 +107,11 @@ function drawSnake() {
         x: snakeX,
         y: snakeY,
     }
-
+    console.log(snakeX / grid, snakeY / grid)
     if (
-        snakeX < grid ||
+        snakeX < 0 ||
         snakeX > 15 * grid ||
-        snakeY < 3 * grid ||
+        snakeY < 0 ||
         snakeY > 15 * grid ||
         collision(newHead, snakeArr)
     ) {
