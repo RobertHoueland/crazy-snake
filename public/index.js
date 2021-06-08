@@ -155,11 +155,14 @@ function drawSnake() {
     currentScore.textContent = "Current Score: " + score
 }
 
+var instructions = document.querySelector('.instructions')
 // Draw snake every 150ms (ms is speed of snake)
 document.addEventListener("keydown", startGame)
 // draw snake every 150ms (ms is speed of snake)
 function startGame(){
+  instructions.classList.add("hidden")
   var game = setInterval(drawSnake, 150)
   document.removeEventListener("keydown", startGame)
   document.addEventListener("keydown", moveSnake)
+  
 }
