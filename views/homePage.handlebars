@@ -1,9 +1,8 @@
 {{#if displayAll}}
-
-
 <p class="current-score">
   Current Score: 
 </p>
+{{/if}}
 
 <div class="score-grid">
   <div id="name-header">Player</div>
@@ -14,6 +13,7 @@
   {{/each}}
 </div>
 
+{{#if displayAll}}
 <main class="game-container">
   <canvas class="game-box" width="512" height="512"></canvas>
   <div class="instructions-container">
