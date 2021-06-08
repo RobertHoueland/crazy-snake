@@ -20,6 +20,10 @@ var currDirection
 var game
 var birdFly
 var foxMove
+var snakeFood = {}
+var bootObstacle = {}
+var birdObstacle = {}
+var foxObstacle = {}
 
 /* icons made in MS paint */
 const foodImg = new Image()
@@ -37,11 +41,6 @@ bird.src = "bird.png"
 /* icon from https://www.pinterest.com/pin/193021534009808883/ */
 const fox = new Image()
 fox.src = "fox.png"
-
-var snakeFood = {}
-var bootObstacle = {}
-var birdObstacle = {}
-var foxObstacle = {}
 
 function findFoodLocation() {
     snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
@@ -168,8 +167,8 @@ function moveSnake(event) {
     }
 }
 
+/* check if snake runs into itself */
 function endSnake(head, arr) {
-    /* check if snake runs into itself */
     for (i = 0; i < arr.length; i++) {
         if (head.x == arr[i].x && head.y == arr[i].y) {
             return true
@@ -178,7 +177,7 @@ function endSnake(head, arr) {
     return false
 }
 
-/* draw snake every __ms (ms is speed of snake) */
+/* Starts game, draw snake every __ms (ms affects speed of snake) */
 document.addEventListener("keydown", startGame)
 function startGame(event) {
     /* starting location for snake head and tail */
@@ -310,7 +309,7 @@ function drawSnake() {
         snakeArr.pop()
     }
 
-    /* add new head */
+    /* new head */
     var snakeHead = {
         x: snakeX,
         y: snakeY,
