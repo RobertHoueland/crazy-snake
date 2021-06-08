@@ -5,6 +5,8 @@ var instructions = document.querySelector(".instructions")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
 var score = 0
+var gameOverModal = document.getElementById("game-over-modal")
+var modalBackdrop = document.getElementById("modal-backdrop")
 var direction
 
 /* starting location for snake head and tail */
@@ -159,6 +161,8 @@ function drawSnake() {
         endSnake(snakeHead, snakeArr)
     ) {
         //death
+        gameOverModal.classList.remove("hidden")
+        modalBackdrop.classList.remove("hidden")
         clearInterval(game)
     }
 
@@ -171,9 +175,9 @@ function drawSnake() {
 document.addEventListener("keydown", startGame)
 /* draw snake every 150ms (ms is speed of snake) */
 var game
-function startGame() {
-    instructions.classList.add("hidden")
-    game = setInterval(drawSnake, 125)
-    document.removeEventListener("keydown", startGame)
-    document.addEventListener("keydown", moveSnake)
+function startGame(){
+  instructions.classList.add("hidden")
+  game = setInterval(drawSnake, 150)
+  document.removeEventListener("keydown", startGame)
+  document.addEventListener("keydown", moveSnake)
 }
