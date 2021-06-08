@@ -74,6 +74,7 @@ function endSnake(head, arr) {
 var game
 document.addEventListener("keydown", startGame)
 function startGame() {
+    instructions.classList.add("hidden")
     game = setInterval(drawSnake, 150)
     document.removeEventListener("keydown", startGame)
     document.addEventListener("keydown", moveSnake)
