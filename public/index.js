@@ -12,12 +12,13 @@ snakeArr[1] = { x: 4 * grid, y: 8 * grid }
 snakeArr[2] = { x: 3 * grid, y: 8 * grid }
 
 /* random location for food */
-var snakeFood = {
-    x: Math.floor(Math.random() * 15 + 1) * grid,
-    y: Math.floor(Math.random() * 13 + 3) * grid,
-}
+
 /* check if snake food is on tail */
 for (i = 0; i < snakeArr.length; i++) {
+    var snakeFood = {
+        x: Math.floor(Math.random() * 15 + 1) * grid,
+        y: Math.floor(Math.random() * 13 + 3) * grid,
+    }
     if (snakeFood.x == snakeArr[i].x) {
         snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
     }
@@ -123,12 +124,12 @@ function drawSnake() {
     if (snakeX == snakeFood.x && snakeY == snakeFood.y) {
         canvasContext.clearRect(snakeFood.x, snakeFood.y, grid, grid)
         score++
-        snakeFood = {
-            x: Math.floor(Math.random() * 15 + 1) * grid,
-            y: Math.floor(Math.random() * 13 + 3) * grid,
-        }
         /* check if snake food is on tail */
         for (i = 0; i < snakeArr.length; i++) {
+            snakeFood = {
+                x: Math.floor(Math.random() * 15 + 1) * grid,
+                y: Math.floor(Math.random() * 13 + 3) * grid,
+            }
             if (snakeFood.x == snakeArr[i].x) {
                 snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
             }
@@ -171,10 +172,13 @@ var instructions = document.querySelector('.instructions')
 // Draw snake every 150ms (ms is speed of snake)
 document.addEventListener("keydown", startGame)
 // draw snake every 150ms (ms is speed of snake)
+
+var game
 function startGame(){
   instructions.classList.add("hidden")
-  var game = setInterval(drawSnake, 150)
+  game = setInterval(drawSnake, 150)
   document.removeEventListener("keydown", startGame)
   document.addEventListener("keydown", moveSnake)
   
 }
+
