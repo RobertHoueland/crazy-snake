@@ -17,6 +17,11 @@ var direction = "right"
 var currDirection
 var game
 var birdFly
+var foxMove
+var snakeFood = {}
+var bootObstacle = {}
+var birdObstacle = {}
+var foxObstacle = {}
 
 /* icons made in MS paint */
 const foodImg = new Image()
@@ -31,22 +36,9 @@ boot.src = "boot.png"
 /* icon from http://clipart-library.com/clipart/8TA6eypGc.htm */
 const bird = new Image()
 bird.src = "bird.png"
-
-/* random location for food */
-var snakeFood = {
-    x: Math.floor(Math.random() * 15 + 1) * grid,
-    y: Math.floor(Math.random() * 13 + 3) * grid,
-}
-/* random location for boot obstacle */
-var bootObstacle = {
-    x: Math.floor(Math.random() * 15 + 1) * grid,
-    y: Math.floor(Math.random() * 13 + 3) * grid,
-}
-/* random location for bird obstacle */
-var birdObstacle = {
-    x: Math.floor(Math.random() * 15 + 1) * grid,
-    y: Math.floor(Math.random() * 13 + 3) * grid,
-}
+/* icon from https://www.pinterest.com/pin/193021534009808883/ */
+const fox = new Image()
+fox.src = "fox.png"
 
 function findFoodLocation() {
     snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
@@ -55,7 +47,8 @@ function findFoodLocation() {
         if (
             (snakeFood.x == snakeArr[i].x && snakeFood.y == snakeArr[i].y) ||
             (snakeFood.x == birdObstacle.x && snakeFood.y == birdObstacle.y) ||
-            (snakeFood.x == bootObstacle.x && snakeFood.y == bootObstacle.y)
+            (snakeFood.x == bootObstacle.x && snakeFood.y == bootObstacle.y) ||
+            (snakeFood.x == foxObstacle.x && snakeFood.y == foxObstacle.y)
         ) {
             snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
             snakeFood.y = Math.floor(Math.random() * 13 + 3) * grid
@@ -72,7 +65,8 @@ function findBootLocation() {
                 bootObstacle.y == snakeArr[i].y) ||
             (bootObstacle.x == birdObstacle.x &&
                 bootObstacle.y == birdObstacle.y) ||
-            (bootObstacle.x == snakeFood.x && bootObstacle.y == snakeFood.y)
+            (bootObstacle.x == snakeFood.x && bootObstacle.y == snakeFood.y) ||
+            (bootObstacle.x == foxObstacle.x && bootObstacle.y == foxObstacle.y)
         ) {
             bootObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
             bootObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
@@ -89,10 +83,29 @@ function findBirdLocation() {
                 birdObstacle.y == snakeArr[i].y) ||
             (birdObstacle.x == snakeFood.x && birdObstacle.y == snakeFood.y) ||
             (birdObstacle.x == bootObstacle.x &&
-                birdObstacle.y == bootObstacle.y)
+                birdObstacle.y == bootObstacle.y) ||
+            (birdObstacle.x == foxObstacle.x && birdObstacle.y == foxObstacle.y)
         ) {
             birdObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
             birdObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
+        }
+    }
+}
+
+function findFoxLocation() {
+    foxObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
+    foxObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
+    for (i = 0; i < snakeArr.length; i++) {
+        if (
+            (foxObstacle.x == snakeArr[i].x &&
+                foxObstacle.y == snakeArr[i].y) ||
+            (foxObstacle.x == snakeFood.x && foxObstacle.y == snakeFood.y) ||
+            (foxObstacle.x == bootObstacle.x &&
+                foxObstacle.y == bootObstacle.y) ||
+            (foxObstacle.x == birdObstacle.x && foxObstacle.y == birdObstacle.y)
+        ) {
+            foxObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
+            foxObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
         }
     }
 }
@@ -152,8 +165,8 @@ function moveSnake(event) {
     }
 }
 
+/* check if snake runs into itself */
 function endSnake(head, arr) {
-    /* check if snake runs into itself */
     for (i = 0; i < arr.length; i++) {
         if (head.x == arr[i].x && head.y == arr[i].y) {
             return true
@@ -162,7 +175,7 @@ function endSnake(head, arr) {
     return false
 }
 
-/* draw snake every __ms (ms is speed of snake) */
+/* Starts game, draw snake every __ms (ms affects speed of snake) */
 document.addEventListener("keydown", startGame)
 function startGame(event) {
     /* starting location for snake head and tail */
@@ -173,32 +186,52 @@ function startGame(event) {
     /* set difficulty of snake speed */
     if (key == 49 || key == 97) {
         /* Easy: '1' */
+        findFoodLocation()
+        findBootLocation()
+        findBirdLocation()
+        findFoxLocation()
         game = setInterval(drawSnake, 150)
         birdFly = setInterval(findBirdLocation, 5000)
+        foxMove = setInterval(findFoxLocation, 10000)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
     }
     if (key == 50 || key == 98) {
         /* Medium: '2' */
+        findFoodLocation()
+        findBootLocation()
+        findBirdLocation()
+        findFoxLocation()
         game = setInterval(drawSnake, 100)
         birdFly = setInterval(findBirdLocation, 3000)
+        foxMove = setInterval(findFoxLocation, 6000)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
     }
     if (key == 51 || key == 99) {
         /* Hard: '3' */
+        findFoodLocation()
+        findBootLocation()
+        findBirdLocation()
+        findFoxLocation()
         game = setInterval(drawSnake, 50)
         birdFly = setInterval(findBirdLocation, 2000)
+        foxMove = setInterval(findFoxLocation, 4000)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
     }
     if (key == 52 || key == 100) {
         /* Insane: '4' */
+        findFoodLocation()
+        findBootLocation()
+        findBirdLocation()
+        findFoxLocation()
         game = setInterval(drawSnake, 25)
         birdFly = setInterval(findBirdLocation, 1000)
+        foxMove = setInterval(findFoxLocation, 2000)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
@@ -224,18 +257,22 @@ function drawSnake() {
         canvasContext.strokeRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
     }
 
-    /* draw food img and black border around it */
+    /* draw icons and black border around */
     canvasContext.drawImage(foodImg, snakeFood.x, snakeFood.y)
     canvasContext.strokeStyle = "black"
     canvasContext.strokeRect(snakeFood.x, snakeFood.y, grid, grid)
-    /* draw boot and black border around it */
+
     canvasContext.drawImage(boot, bootObstacle.x, bootObstacle.y)
     canvasContext.strokeStyle = "black"
     canvasContext.strokeRect(bootObstacle.x, bootObstacle.y, grid, grid)
-    /* draw bird and black border around it */
+
     canvasContext.drawImage(bird, birdObstacle.x, birdObstacle.y)
     canvasContext.strokeStyle = "black"
     canvasContext.strokeRect(birdObstacle.x, birdObstacle.y, grid, grid)
+
+    canvasContext.drawImage(fox, foxObstacle.x, foxObstacle.y)
+    canvasContext.strokeStyle = "black"
+    canvasContext.strokeRect(foxObstacle.x, foxObstacle.y, grid, grid)
 
     /* get snake position */
     var snakeX = snakeArr[0].x
@@ -263,14 +300,14 @@ function drawSnake() {
     if (snakeX == snakeFood.x && snakeY == snakeFood.y) {
         canvasContext.clearRect(snakeFood.x, snakeFood.y, grid, grid)
         score++
-        /* check if snake food is on tail */
+        /* new food location */
         findFoodLocation()
     } else {
         /* remove tail */
         snakeArr.pop()
     }
 
-    /* add new head */
+    /* new head */
     var snakeHead = {
         x: snakeX,
         y: snakeY,
@@ -284,7 +321,8 @@ function drawSnake() {
         snakeY > 15 * grid ||
         endSnake(snakeHead, snakeArr) ||
         (snakeX == bootObstacle.x && snakeY == bootObstacle.y) ||
-        (snakeX == birdObstacle.x && snakeY == birdObstacle.y)
+        (snakeX == birdObstacle.x && snakeY == birdObstacle.y) ||
+        (snakeX == foxObstacle.x && snakeY == foxObstacle.y)
     ) {
         /* death of snake */
         gameOverModal.classList.remove("hidden")
@@ -292,6 +330,7 @@ function drawSnake() {
         gameScore.textContent = score
         clearInterval(game)
         clearInterval(birdFly)
+        clearInterval(foxMove)
     }
 
     snakeArr.unshift(snakeHead)
@@ -313,6 +352,7 @@ function closeModal() {
     findFoodLocation()
     findBootLocation()
     findBirdLocation()
+    findFoxLocation()
     snakeArr = []
     document.addEventListener("keydown", startGame)
 }
