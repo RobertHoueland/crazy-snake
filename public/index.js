@@ -19,12 +19,13 @@ var direction = "right"
 var currDirection
 var game
 
-/* food icon made in MS paint */
+/* icons made in MS paint */
 const foodImg = new Image()
 foodImg.src = "food.png"
-
 const snakeFace = new Image()
 snakeFace.src = "face.png"
+const gridImg = new Image()
+gridImg.src = "grid.png"
 
 /* random location for food */
 var snakeFood = {
@@ -140,6 +141,7 @@ function startGame(event) {
 function drawSnake() {
     /* clear canvas each draw */
     canvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
+    canvasContext.drawImage(gridImg, 0, 0)
     for (i = 0; i < snakeArr.length; i++) {
         /* draw head of snake dark green, tail light green */
         if (i == 0) {
