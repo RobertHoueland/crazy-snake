@@ -4,7 +4,7 @@ var currentScore = document.querySelector(".current-score")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
 var score = 0
-var direction = "right"
+var direction
 
 /* starting location for snake head and tail */
 snakeArr[0] = { x: 5 * grid, y: 8 * grid }
@@ -67,7 +67,19 @@ function collision(head, arr) {
     return false
 }
 
+/* draw snake every 150ms (ms is speed of snake) */
+var game
+document.addEventListener("keydown", startGame)
+function startGame() {
+    game = setInterval(drawSnake, 150)
+    document.removeEventListener("keydown", startGame)
+    document.addEventListener("keydown", moveSnake)
+}
+
 function drawSnake() {
+    if (direction == undefined) {
+        direction = "right"
+    }
     for (i = 0; i < snakeArr.length; i++) {
         if (i == 0) {
             canvasContext.fillStyle = "Green"
@@ -153,13 +165,4 @@ function drawSnake() {
 
     /* update score on page */
     currentScore.textContent = "Current Score: " + score
-}
-
-// Draw snake every 150ms (ms is speed of snake)
-document.addEventListener("keydown", startGame)
-// draw snake every 150ms (ms is speed of snake)
-function startGame(){
-  var game = setInterval(drawSnake, 150)
-  document.removeEventListener("keydown", startGame)
-  document.addEventListener("keydown", moveSnake)
 }
