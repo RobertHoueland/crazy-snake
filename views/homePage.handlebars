@@ -1,12 +1,12 @@
 {{#if displayAll}}
-<div class="instructions">
-  <p>Use WASD keys or arrow keys to play!</p>
-</div>
+
+
 <p class="current-score">
   Current Score: 
 </p>
 <main class="game-container">
-  <canvas class="game-box" width="512" height="512">
+  <p class="instructions">Use WASD keys or arrow keys to play!</p>
+  <canvas class="game-box" width="512" height="512"></canvas>
 </main>
 
 <div class="score-grid">
@@ -19,6 +19,7 @@
 </div>
 
 <div id="modal-backdrop" class="hidden"></div>
+
 <div id="enter-name-modal" class="hidden">
   <div class="modal-dialog">
 
@@ -41,7 +42,6 @@
   </div>
 </div>
 
-<div id="modal-backdrop" class="hidden"></div>
 <div id="game-over-modal" class="hidden">
   <div id="game-over-modal-dialog" class="modal-dialog">
 
