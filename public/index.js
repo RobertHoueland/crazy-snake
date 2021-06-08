@@ -9,6 +9,7 @@ var direction = "right"
 /* starting location for snake head and tail */
 snakeArr[0] = { x: 5 * grid, y: 8 * grid }
 snakeArr[1] = { x: 4 * grid, y: 8 * grid }
+snakeArr[2] = { x: 3 * grid, y: 8 * grid }
 
 /* random location for food */
 var snakeFood = {
@@ -79,6 +80,12 @@ function drawSnake() {
 
         canvasContext.strokeStyle = "Blue"
         canvasContext.strokeRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
+
+        /* delete tail of snake as it moves */
+        var tail = snakeArr[snakeArr.length - 1]
+        canvasContext.clearRect(tail.x, tail.y, grid, grid)
+        canvasContext.clearRect(tail.x, tail.y - 1, grid + 2, grid + 2)
+        canvasContext.clearRect(tail.x - 1, tail.y, grid + 2, grid + 2)
     }
 
     canvasContext.fillStyle = "Red"
@@ -151,4 +158,4 @@ function drawSnake() {
 }
 
 // draw snake every 150ms (ms is speed of snake)
-var game = setInterval(drawSnake, 100)
+var game = setInterval(drawSnake, 150)
