@@ -28,8 +28,6 @@ for (i = 0; i < snakeArr.length; i++) {
     }
 }
 
-document.addEventListener("keydown", moveSnake)
-
 function moveSnake(event) {
     /* move snake direction based on keypress key code */
     var key = event.keyCode
@@ -157,5 +155,11 @@ function drawSnake() {
     currentScore.textContent = "Current Score: " + score
 }
 
+// Draw snake every 150ms (ms is speed of snake)
+document.addEventListener("keydown", startGame)
 // draw snake every 150ms (ms is speed of snake)
-var game = setInterval(drawSnake, 150)
+function startGame(){
+  var game = setInterval(drawSnake, 150)
+  document.removeEventListener("keydown", startGame)
+  document.addEventListener("keydown", moveSnake)
+}
