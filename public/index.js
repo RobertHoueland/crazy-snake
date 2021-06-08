@@ -4,7 +4,9 @@ var currentScore = document.querySelector(".current-score")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
 var score = 0
-var direction = "right"
+var gameOverModal = document.getElementById("game-over-modal")
+var modalBackdrop = document.getElementById("modal-backdrop")
+var direction
 
 /* starting location for snake head and tail */
 snakeArr[0] = { x: 5 * grid, y: 8 * grid }
@@ -12,12 +14,13 @@ snakeArr[1] = { x: 4 * grid, y: 8 * grid }
 snakeArr[2] = { x: 3 * grid, y: 8 * grid }
 
 /* random location for food */
-var snakeFood = {
-    x: Math.floor(Math.random() * 15 + 1) * grid,
-    y: Math.floor(Math.random() * 13 + 3) * grid,
-}
+
 /* check if snake food is on tail */
 for (i = 0; i < snakeArr.length; i++) {
+    var snakeFood = {
+        x: Math.floor(Math.random() * 15 + 1) * grid,
+        y: Math.floor(Math.random() * 13 + 3) * grid,
+    }
     if (snakeFood.x == snakeArr[i].x) {
         snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
     }
@@ -67,7 +70,19 @@ function collision(head, arr) {
     return false
 }
 
+/* draw snake every 150ms (ms is speed of snake) */
+var game
+document.addEventListener("keydown", startGame)
+function startGame() {
+    game = setInterval(drawSnake, 150)
+    document.removeEventListener("keydown", startGame)
+    document.addEventListener("keydown", moveSnake)
+}
+
 function drawSnake() {
+    if (direction == undefined) {
+        direction = "right"
+    }
     for (i = 0; i < snakeArr.length; i++) {
         if (i == 0) {
             canvasContext.fillStyle = "Green"
@@ -111,12 +126,12 @@ function drawSnake() {
     if (snakeX == snakeFood.x && snakeY == snakeFood.y) {
         canvasContext.clearRect(snakeFood.x, snakeFood.y, grid, grid)
         score++
-        snakeFood = {
-            x: Math.floor(Math.random() * 15 + 1) * grid,
-            y: Math.floor(Math.random() * 13 + 3) * grid,
-        }
         /* check if snake food is on tail */
         for (i = 0; i < snakeArr.length; i++) {
+            snakeFood = {
+                x: Math.floor(Math.random() * 15 + 1) * grid,
+                y: Math.floor(Math.random() * 13 + 3) * grid,
+            }
             if (snakeFood.x == snakeArr[i].x) {
                 snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
             }
@@ -146,6 +161,8 @@ function drawSnake() {
         collision(newHead, snakeArr)
     ) {
         //death
+        gameOverModal.classList.remove("hidden")
+        modalBackdrop.classList.remove("hidden")
         clearInterval(game)
     }
 
@@ -159,10 +176,11 @@ var instructions = document.querySelector('.instructions')
 // Draw snake every 150ms (ms is speed of snake)
 document.addEventListener("keydown", startGame)
 // draw snake every 150ms (ms is speed of snake)
+
+var game
 function startGame(){
   instructions.classList.add("hidden")
-  var game = setInterval(drawSnake, 150)
+  game = setInterval(drawSnake, 150)
   document.removeEventListener("keydown", startGame)
   document.addEventListener("keydown", moveSnake)
-  
 }
