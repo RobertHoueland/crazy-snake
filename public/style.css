@@ -41,6 +41,10 @@ a {
   font-size: 25px;
   padding-left: 20px;
   text-align: center;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  height: 100px;
 }
 .game-container {
   display: flex;
@@ -61,7 +65,7 @@ a {
 }
 
 .score-grid {
-  position: relative;
+  position: absolute;
   left: 10%;
   display: grid;
   grid-template-columns: 100px 100px;
@@ -70,13 +74,12 @@ a {
   justify-content: left;
   border: 1px solid #686ee2;
   border-radius: 2px;
-  margin-top: 20px;
-  margin-bottom: 100px;
 }
 .score-grid > * {
   font-size: 20px;
   font-weight: normal;
   background-color: white;
+  padding-left: 5px;
 }
 
 #name-header,
@@ -245,11 +248,4 @@ a {
 
 #game-over-modal-body > p{
   font-size: 24px;
-}
-
-.instructions{
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  height: 100px;
 }
