@@ -38,26 +38,10 @@ bird.src = "bird.png"
 const fox = new Image()
 fox.src = "fox.png"
 
-/* random location for food */
-var snakeFood = {
-    x: Math.floor(Math.random() * 15 + 1) * grid,
-    y: Math.floor(Math.random() * 13 + 3) * grid,
-}
-/* random location for boot obstacle */
-var bootObstacle = {
-    x: Math.floor(Math.random() * 15 + 1) * grid,
-    y: Math.floor(Math.random() * 13 + 3) * grid,
-}
-/* random location for bird obstacle */
-var birdObstacle = {
-    x: Math.floor(Math.random() * 15 + 1) * grid,
-    y: Math.floor(Math.random() * 13 + 3) * grid,
-}
-/* random location for fox obstacle */
-var foxObstacle = {
-    x: Math.floor(Math.random() * 15 + 1) * grid,
-    y: Math.floor(Math.random() * 13 + 3) * grid,
-}
+var snakeFood = {}
+var bootObstacle = {}
+var birdObstacle = {}
+var foxObstacle = {}
 
 function findFoodLocation() {
     snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
@@ -205,6 +189,10 @@ function startGame(event) {
     /* set difficulty of snake speed */
     if (key == 49 || key == 97) {
         /* Easy: '1' */
+        findFoodLocation()
+        findBootLocation()
+        findBirdLocation()
+        findFoxLocation()
         game = setInterval(drawSnake, 150)
         birdFly = setInterval(findBirdLocation, 5000)
         foxMove = setInterval(findFoxLocation, 10000)
@@ -214,6 +202,10 @@ function startGame(event) {
     }
     if (key == 50 || key == 98) {
         /* Medium: '2' */
+        findFoodLocation()
+        findBootLocation()
+        findBirdLocation()
+        findFoxLocation()
         game = setInterval(drawSnake, 100)
         birdFly = setInterval(findBirdLocation, 3000)
         foxMove = setInterval(findFoxLocation, 6000)
@@ -223,6 +215,10 @@ function startGame(event) {
     }
     if (key == 51 || key == 99) {
         /* Hard: '3' */
+        findFoodLocation()
+        findBootLocation()
+        findBirdLocation()
+        findFoxLocation()
         game = setInterval(drawSnake, 50)
         birdFly = setInterval(findBirdLocation, 2000)
         foxMove = setInterval(findFoxLocation, 4000)
@@ -232,6 +228,10 @@ function startGame(event) {
     }
     if (key == 52 || key == 100) {
         /* Insane: '4' */
+        findFoodLocation()
+        findBootLocation()
+        findBirdLocation()
+        findFoxLocation()
         game = setInterval(drawSnake, 25)
         birdFly = setInterval(findBirdLocation, 1000)
         foxMove = setInterval(findFoxLocation, 2000)
@@ -303,7 +303,7 @@ function drawSnake() {
     if (snakeX == snakeFood.x && snakeY == snakeFood.y) {
         canvasContext.clearRect(snakeFood.x, snakeFood.y, grid, grid)
         score++
-        /* check if snake food is on tail */
+        /* new food location */
         findFoodLocation()
     } else {
         /* remove tail */
