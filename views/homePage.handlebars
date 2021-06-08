@@ -4,10 +4,6 @@
 <p class="current-score">
   Current Score: 
 </p>
-<main class="game-container">
-  <p class="instructions">Use WASD keys or arrow keys to play!</p>
-  <canvas class="game-box" width="512" height="512"></canvas>
-</main>
 
 <div class="score-grid">
   <div id="name-header">Player</div>
@@ -17,6 +13,11 @@
     {{> table}}
   {{/each}}
 </div>
+
+<main class="game-container">
+  <p class="instructions">Use WASD keys or arrow keys to play!</p>
+  <canvas class="game-box" width="512" height="512"></canvas>
+</main>
 
 <div id="modal-backdrop" class="hidden"></div>
 
