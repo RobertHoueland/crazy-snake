@@ -76,11 +76,32 @@ function endSnake(head, arr) {
 
 /* draw snake every __ms (ms is speed of snake) */
 document.addEventListener("keydown", startGame)
-function startGame() {
-    instructions.classList.add("hidden")
-    game = setInterval(drawSnake, 150)
-    document.removeEventListener("keydown", startGame)
-    document.addEventListener("keydown", moveSnake)
+function startGame(event) {
+    var key = event.keyCode
+    if (key == 49) {
+        game = setInterval(drawSnake, 150)
+        instructions.classList.add("hidden")
+        document.removeEventListener("keydown", startGame)
+        document.addEventListener("keydown", moveSnake)
+    }
+    if (key == 50) {
+        game = setInterval(drawSnake, 100)
+        instructions.classList.add("hidden")
+        document.removeEventListener("keydown", startGame)
+        document.addEventListener("keydown", moveSnake)
+    }
+    if (key == 51) {
+        game = setInterval(drawSnake, 50)
+        instructions.classList.add("hidden")
+        document.removeEventListener("keydown", startGame)
+        document.addEventListener("keydown", moveSnake)
+    }
+    if (key == 52) {
+        game = setInterval(drawSnake, 25)
+        instructions.classList.add("hidden")
+        document.removeEventListener("keydown", startGame)
+        document.addEventListener("keydown", moveSnake)
+    }
 }
 
 function drawSnake() {
