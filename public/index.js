@@ -77,6 +77,7 @@ function endSnake(head, arr) {
 /* draw snake every __ms (ms is speed of snake) */
 document.addEventListener("keydown", startGame)
 function startGame() {
+    instructions.classList.add("hidden")
     game = setInterval(drawSnake, 150)
     document.removeEventListener("keydown", startGame)
     document.addEventListener("keydown", moveSnake)
