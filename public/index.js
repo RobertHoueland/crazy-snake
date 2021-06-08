@@ -56,11 +56,13 @@ function findFoodLocation() {
             x: Math.floor(Math.random() * 15 + 1) * grid,
             y: Math.floor(Math.random() * 13 + 3) * grid,
         }
-        if (snakeFood.x == snakeArr[i].x && snakeFood.y == snakeArr[i].y) {
+        if (
+            (snakeFood.x == snakeArr[i].x && snakeFood.y == snakeArr[i].y) ||
+            (snakeFood.x == birdObstacle.x && snakeFood.y == birdObstacle.y) ||
+            (snakeFood.x == bootObstacle.x && snakeFood.y == bootObstacle.y)
+        ) {
             snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
             snakeFood.y = Math.floor(Math.random() * 13 + 3) * grid
-        } else {
-            break
         }
     }
 }
@@ -74,20 +76,18 @@ function findBootLocation() {
         if (
             (bootObstacle.x == snakeArr[i].x &&
                 bootObstacle.y == snakeArr[i].y) ||
+            (bootObstacle.x == birdObstacle.x &&
+                bootObstacle.y == birdObstacle.y) ||
             (bootObstacle.x == snakeFood.x && bootObstacle.y == snakeFood.y)
         ) {
             bootObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
             bootObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
-        } else {
-            break
         }
     }
 }
 
 function findBirdLocation() {
     for (i = 0; i < snakeArr.length; i++) {
-        console.log("Bird:", birdObstacle.x, birdObstacle.y)
-        console.log("Snake:", snakeArr[i].x, snakeArr[i].y)
         birdObstacle = {
             x: Math.floor(Math.random() * 15 + 1) * grid,
             y: Math.floor(Math.random() * 13 + 3) * grid,
@@ -99,12 +99,8 @@ function findBirdLocation() {
             (birdObstacle.x == bootObstacle.x &&
                 birdObstacle.y == bootObstacle.y)
         ) {
-            console.log("Running: " + i)
             birdObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
             birdObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
-        } else {
-            console.log("Not running: " + i)
-            break
         }
     }
 }
