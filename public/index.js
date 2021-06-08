@@ -16,7 +16,22 @@ var snakeFood = {
 var score = 0
 var direction
 
+function collision(snakeHead, snkArr){
+    for(var i = 0; i < snkArr.length; i++){
+        if(snakeHead.x === snkArr[i].x && snakeHead.y === snkArr[i].y){
+            return true
+        }
+    }
+    
+    return false
+}
+
 function drawSnake() {
+
+    if(direction === undefined){
+        direction = "RIGHT"
+    }
+
     for (i = 0; i < snakeArr.length; i++) {
         if (i == 0) {
             canvasContext.fillStyle = "Green"
@@ -25,8 +40,6 @@ function drawSnake() {
         }
         canvasContext.fillRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
 
-        canvasContext.strokeStyle = "DarkOrange"
-        canvasContext.strokeRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
     }
 
     canvasContext.fillStyle = "red"
@@ -51,7 +64,7 @@ function drawSnake() {
     }
 
     // if the snake eats the food
-    if (snakeX == snakeFood.x && snakeY == snakeFood.y) {
+    if (snakeX === snakeFood.x && snakeY === snakeFood.y) {
         score++
         //eat.play()
         snakeFood = {
@@ -60,6 +73,13 @@ function drawSnake() {
         }
     } else {
         // Remove tail
+        var tailX = snakeArr[snakeArr.length - 1].x
+
+        var tailY = snakeArr[snakeArr.length - 1].y
+
+        canvasContext.fillStyle = "SkyBlue"
+        canvasContext.fillRect(tailX, tailY, grid, grid)
+
         snakeArr.pop()
     }
 
@@ -69,6 +89,11 @@ function drawSnake() {
         y: snakeY,
     }
 
+    var oldHead = {
+        x: snakeArr[0].x,
+        y: snakeArr[0].y,
+    }
+
     if (
         snakeX < grid ||
         snakeX > 17 * grid ||
@@ -76,10 +101,18 @@ function drawSnake() {
         snakeY > 17 * grid ||
         collision(newHead, snakeArr)
     ) {
+
         clearInterval(game)
+        console.log("game over")
     }
 
-    snakeArr.unshift(newHead)
+    canvasContext.fillStyle = "Chartreuse"
+    canvasContext.fillRect(oldHead.x, oldHead.y, grid, grid)
+
+    snakeArr.unshift(newHead) 
+
+    canvasContext.fillStyle = "Green"
+    canvasContext.fillRect(newHead.x, newHead.y, grid, grid)
 
     canvasContext.fillStyle = "white"
     canvasContext.font = "45px Arial"
@@ -88,33 +121,22 @@ function drawSnake() {
 
 function moveSnake(event) {
     // Move snake direction based on keypress key code
-    var key = event.keyCode
-    if (
-        (key == 37 && direction != "right") ||
-        (key == 65 && direction != "right")
-    ) {
-        // 'A' key or left arrow key
-        direction = "left"
-    } else if (
-        (key == 38 && direction != "down") ||
-        (key == 87 && direction != "down")
-    ) {
-        // 'W' key or up arrow key
-        direction = "up"
-    } else if (
-        (key == 39 && direction != "left") ||
-        (key == 68 && direction != "left")
-    ) {
-        // 'D' key or right arrow key
-        direction = "right"
-    } else if (
-        (key == 40 && direction != "up") ||
-        (key == 83 && direction != "up")
-    ) {
-        // 'S' key or down arrow key
-        direction = "down"
+    var key = event.code
+
+    if(key === "KeyA"  && direction !== "RIGHT"){
+        direction = "LEFT"
+    
+    }else if(key === "KeyW" && direction !== "DOWN"){
+        direction = "UP"
+    
+    }else if(key === "KeyD" && direction !== "LEFT"){
+        direction = "RIGHT"
+    
+    }else if(key === "KeyS" && direction !== "UP"){
+        direction = "DOWN"
     }
 }
+
 
 document.addEventListener("keydown", moveSnake)
 

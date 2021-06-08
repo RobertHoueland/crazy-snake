@@ -42,7 +42,7 @@ a {
   padding-left: 20px;
 }
 .game-container {
-  background-color: SkyBlue;
+  background-color: rgb(7, 7, 7);
   display: flex;
   border: 1px solid black;
   border-radius: 3px;
@@ -50,7 +50,9 @@ a {
   margin: 2% 10%;
   min-height: 300px;
 }
-
+.game-box{
+  background-color: SkyBlue;
+}
 .score-grid {
   position: relative;
   left: 10%;
