@@ -15,6 +15,13 @@ var direction = "right"
 var currDirection
 var game
 
+/* food icon made in MS paint */
+const foodImg = new Image()
+foodImg.src = "food.png"
+
+const snakeFace = new Image()
+snakeFace.src = "face.png"
+
 /* random location for food */
 var snakeFood = {
     x: Math.floor(Math.random() * 15 + 1) * grid,
@@ -52,6 +59,7 @@ function moveSnake(event) {
 }
 
 function endSnake(head, arr) {
+    /* check if snake runs into itself */
     for (i = 0; i < arr.length; i++) {
         if (head.x == arr[i].x && head.y == arr[i].y) {
             return true
@@ -104,19 +112,23 @@ function drawSnake() {
     /* clear canvas each draw */
     canvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
     for (i = 0; i < snakeArr.length; i++) {
+        /* draw head of snake dark green, tail light green */
         if (i == 0) {
-            canvasContext.fillStyle = "Green"
+            canvasContext.drawImage(snakeFace, snakeArr[i].x, snakeArr[i].y)
         } else {
             canvasContext.fillStyle = "Chartreuse"
+            canvasContext.fillRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
         }
-        canvasContext.fillRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
 
+        /* blue border around snake */
         canvasContext.strokeStyle = "blue"
         canvasContext.strokeRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
     }
 
-    canvasContext.fillStyle = "Red"
-    canvasContext.fillRect(snakeFood.x, snakeFood.y, grid, grid)
+    /* draw food img and black border around it */
+    canvasContext.drawImage(foodImg, snakeFood.x, snakeFood.y)
+    canvasContext.strokeStyle = "black"
+    canvasContext.strokeRect(snakeFood.x, snakeFood.y, grid, grid)
 
     /* get snake position */
     var snakeX = snakeArr[0].x
