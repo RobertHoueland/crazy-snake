@@ -18,6 +18,7 @@ var score = 0
 var direction = "right"
 var currDirection
 var game
+var birdFly
 
 /* icons made in MS paint */
 const foodImg = new Image()
@@ -29,43 +30,82 @@ gridImg.src = "grid.png"
 /* icon from https://www.clker.com/clipart-simple-brown-boot.html */
 const boot = new Image()
 boot.src = "boot.png"
+/* icon from http://clipart-library.com/clipart/8TA6eypGc.htm */
+const bird = new Image()
+bird.src = "bird.png"
 
-/* random location for food, make sure is not on snake tail */
+/* random location for food */
 var snakeFood = {
     x: Math.floor(Math.random() * 15 + 1) * grid,
     y: Math.floor(Math.random() * 13 + 3) * grid,
 }
-for (i = 0; i < snakeArr.length; i++) {
-    snakeFood = {
-        x: Math.floor(Math.random() * 15 + 1) * grid,
-        y: Math.floor(Math.random() * 13 + 3) * grid,
-    }
-    if (snakeFood.x == snakeArr[i].x && snakeFood.y == snakeArr[i].y) {
-        snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
-        snakeFood.y = Math.floor(Math.random() * 13 + 3) * grid
-    } else {
-        break
-    }
-}
-
-/* random location for boot obstacle, make sure is not on snake tail or food */
+/* random location for boot obstacle */
 var bootObstacle = {
     x: Math.floor(Math.random() * 15 + 1) * grid,
     y: Math.floor(Math.random() * 13 + 3) * grid,
 }
-for (i = 0; i < snakeArr.length; i++) {
-    bootObstacle = {
-        x: Math.floor(Math.random() * 15 + 1) * grid,
-        y: Math.floor(Math.random() * 13 + 3) * grid,
+/* random location for bird obstacle */
+var birdObstacle = {
+    x: Math.floor(Math.random() * 15 + 1) * grid,
+    y: Math.floor(Math.random() * 13 + 3) * grid,
+}
+
+function findFoodLocation() {
+    for (i = 0; i < snakeArr.length; i++) {
+        snakeFood = {
+            x: Math.floor(Math.random() * 15 + 1) * grid,
+            y: Math.floor(Math.random() * 13 + 3) * grid,
+        }
+        if (snakeFood.x == snakeArr[i].x && snakeFood.y == snakeArr[i].y) {
+            snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
+            snakeFood.y = Math.floor(Math.random() * 13 + 3) * grid
+        } else {
+            break
+        }
     }
-    if (
-        (bootObstacle.x == snakeArr[i].x && bootObstacle.y == snakeArr[i].y) ||
-        (bootObstacle.x == snakeFood.x && bootObstacle.y == snakeFood.y)
-    ) {
-        bootObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
-        bootObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
-    } else {
-        break
+}
+
+function findBootLocation() {
+    for (i = 0; i < snakeArr.length; i++) {
+        bootObstacle = {
+            x: Math.floor(Math.random() * 15 + 1) * grid,
+            y: Math.floor(Math.random() * 13 + 3) * grid,
+        }
+        if (
+            (bootObstacle.x == snakeArr[i].x &&
+                bootObstacle.y == snakeArr[i].y) ||
+            (bootObstacle.x == snakeFood.x && bootObstacle.y == snakeFood.y)
+        ) {
+            bootObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
+            bootObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
+        } else {
+            break
+        }
+    }
+}
+
+function findBirdLocation() {
+    for (i = 0; i < snakeArr.length; i++) {
+        console.log("Bird:", birdObstacle.x, birdObstacle.y)
+        console.log("Snake:", snakeArr[i].x, snakeArr[i].y)
+        birdObstacle = {
+            x: Math.floor(Math.random() * 15 + 1) * grid,
+            y: Math.floor(Math.random() * 13 + 3) * grid,
+        }
+        if (
+            (birdObstacle.x == snakeArr[i].x &&
+                birdObstacle.y == snakeArr[i].y) ||
+            (birdObstacle.x == snakeFood.x && birdObstacle.y == snakeFood.y) ||
+            (birdObstacle.x == bootObstacle.x &&
+                birdObstacle.y == bootObstacle.y)
+        ) {
+            console.log("Running: " + i)
+            birdObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
+            birdObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
+        } else {
+            console.log("Not running: " + i)
+            break
+        }
     }
 }
 
@@ -143,30 +183,34 @@ function startGame(event) {
     snakeArr[2] = { x: 3 * grid, y: 8 * grid }
     var key = event.keyCode
     /* set difficulty of snake speed */
-    if (key == 49) {
+    if (key == 49 || key == 97) {
         /* Easy: '1' */
         game = setInterval(drawSnake, 150)
+        birdFly = setInterval(findBirdLocation, 5000)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
     }
-    if (key == 50) {
+    if (key == 50 || key == 98) {
         /* Medium: '2' */
         game = setInterval(drawSnake, 100)
+        birdFly = setInterval(findBirdLocation, 3000)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
     }
-    if (key == 51) {
+    if (key == 51 || key == 99) {
         /* Hard: '3' */
         game = setInterval(drawSnake, 50)
+        birdFly = setInterval(findBirdLocation, 2000)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
     }
-    if (key == 52) {
+    if (key == 52 || key == 100) {
         /* Insane: '4' */
         game = setInterval(drawSnake, 25)
+        birdFly = setInterval(findBirdLocation, 1000)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
@@ -200,6 +244,10 @@ function drawSnake() {
     canvasContext.drawImage(boot, bootObstacle.x, bootObstacle.y)
     canvasContext.strokeStyle = "black"
     canvasContext.strokeRect(bootObstacle.x, bootObstacle.y, grid, grid)
+    /* draw bird and black border around it */
+    canvasContext.drawImage(bird, birdObstacle.x, birdObstacle.y)
+    canvasContext.strokeStyle = "black"
+    canvasContext.strokeRect(birdObstacle.x, birdObstacle.y, grid, grid)
 
     /* get snake position */
     var snakeX = snakeArr[0].x
@@ -228,18 +276,7 @@ function drawSnake() {
         canvasContext.clearRect(snakeFood.x, snakeFood.y, grid, grid)
         score++
         /* check if snake food is on tail */
-        for (i = 0; i < snakeArr.length; i++) {
-            snakeFood = {
-                x: Math.floor(Math.random() * 15 + 1) * grid,
-                y: Math.floor(Math.random() * 13 + 3) * grid,
-            }
-            if (snakeFood.x == snakeArr[i].x && snakeFood.y == snakeArr[i].y) {
-                snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
-                snakeFood.y = Math.floor(Math.random() * 13 + 3) * grid
-            } else {
-                break
-            }
-        }
+        findFoodLocation()
     } else {
         /* remove tail */
         snakeArr.pop()
@@ -251,20 +288,22 @@ function drawSnake() {
         y: snakeY,
     }
 
-    /* Check if snake hits edges of box or itself */
+    /* Check if snake hits edges of box or itself or obstacle */
     if (
         snakeX < 0 ||
         snakeX > 15 * grid ||
         snakeY < 0 ||
         snakeY > 15 * grid ||
         endSnake(snakeHead, snakeArr) ||
-        (snakeX == bootObstacle.x && snakeY == bootObstacle.y)
+        (snakeX == bootObstacle.x && snakeY == bootObstacle.y) ||
+        (snakeX == birdObstacle.x && snakeY == birdObstacle.y)
     ) {
         /* death of snake */
         gameOverModal.classList.remove("hidden")
         modalBackdrop.classList.remove("hidden")
         gameScore.textContent = score
         clearInterval(game)
+        clearInterval(birdFly)
     }
 
     snakeArr.unshift(snakeHead)
@@ -283,22 +322,9 @@ function closeModal() {
     canvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
     direction = "right"
     score = 0
-    for (i = 0; i < snakeArr.length; i++) {
-        bootObstacle = {
-            x: Math.floor(Math.random() * 15 + 1) * grid,
-            y: Math.floor(Math.random() * 13 + 3) * grid,
-        }
-        if (
-            (bootObstacle.x == snakeArr[i].x &&
-                bootObstacle.y == snakeArr[i].y) ||
-            (bootObstacle.x == snakeFood.x && bootObstacle.y == snakeFood.y)
-        ) {
-            bootObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
-            bootObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
-        } else {
-            break
-        }
-    }
+    findFoodLocation()
+    findBootLocation()
+    findBirdLocation()
     snakeArr = []
     document.addEventListener("keydown", startGame)
 }
