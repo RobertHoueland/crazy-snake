@@ -1,13 +1,17 @@
+// Credit to https://www.codeexplained.org for explaining canvas elements and how to use them
+
 var gameCanvas = document.querySelector(".game-box")
 var canvasContext = gameCanvas.getContext("2d")
 var currentScore = document.querySelector(".current-score")
 var instructions = document.querySelector(".instructions")
+var gameOverModal = document.getElementById("game-over-modal")
+var modalBackdrop = document.getElementById("modal-backdrop")
+var gameScore = document.querySelector(".gameScore")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
 var score = 0
-var gameOverModal = document.getElementById("game-over-modal")
-var modalBackdrop = document.getElementById("modal-backdrop")
 var direction
+var game
 
 /* starting location for snake head and tail */
 snakeArr[0] = { x: 5 * grid, y: 8 * grid }
@@ -70,8 +74,7 @@ function endSnake(head, arr) {
     return false
 }
 
-/* draw snake every 150ms (ms is speed of snake) */
-var game
+/* draw snake every __ms (ms is speed of snake) */
 document.addEventListener("keydown", startGame)
 function startGame() {
     game = setInterval(drawSnake, 150)
@@ -91,14 +94,9 @@ function drawSnake() {
         }
         canvasContext.fillRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
 
-        canvasContext.strokeStyle = "Blue"
-        // canvasContext.strokeRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
-
         /* delete tail of snake as it moves */
         var tail = snakeArr[snakeArr.length - 1]
         canvasContext.clearRect(tail.x, tail.y, grid, grid)
-        canvasContext.clearRect(tail.x, tail.y - 1, grid + 2, grid + 2)
-        canvasContext.clearRect(tail.x - 1, tail.y, grid + 2, grid + 2)
     }
 
     canvasContext.fillStyle = "Red"
@@ -160,9 +158,10 @@ function drawSnake() {
         snakeY > 15 * grid ||
         endSnake(snakeHead, snakeArr)
     ) {
-        //death
+        /* death of snake */
         gameOverModal.classList.remove("hidden")
         modalBackdrop.classList.remove("hidden")
+        gameScore.textContent = score
         clearInterval(game)
     }
 
@@ -170,14 +169,4 @@ function drawSnake() {
 
     /* update score on page */
     currentScore.textContent = "Current Score: " + score
-}
-
-document.addEventListener("keydown", startGame)
-/* draw snake every 150ms (ms is speed of snake) */
-var game
-function startGame(){
-  instructions.classList.add("hidden")
-  game = setInterval(drawSnake, 150)
-  document.removeEventListener("keydown", startGame)
-  document.addEventListener("keydown", moveSnake)
 }
