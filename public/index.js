@@ -101,6 +101,8 @@ function startGame(event) {
 
 /* Runs game */
 function drawSnake() {
+    /* clear canvas each draw */
+    canvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
     for (i = 0; i < snakeArr.length; i++) {
         if (i == 0) {
             canvasContext.fillStyle = "Green"
@@ -109,9 +111,8 @@ function drawSnake() {
         }
         canvasContext.fillRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
 
-        /* delete tail of snake as it moves */
-        var tail = snakeArr[snakeArr.length - 1]
-        canvasContext.clearRect(tail.x, tail.y, grid, grid)
+        canvasContext.strokeStyle = "blue"
+        canvasContext.strokeRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
     }
 
     canvasContext.fillStyle = "Red"
