@@ -20,19 +20,15 @@
     <p class="instructions">
       Use WASD keys or arrow keys to play!
       <br><br>
-      Select difficulty to start:<br>
+      Press key to select difficulty to start:<br>
       1: Easy<br>
       2: Medium<br>
       3: Hard<br>
-      4: Ultra
+      4: Ultra<br><br><br>
+      Collect fruit for score and to grow longer!<br><br>
+      Watch for out for obstacles!
     </p>
   </div>
-</main>
-
-<main class ="score-container">
-
-
-
 </main>
 
 <div id="modal-backdrop" class="hidden"></div>
@@ -70,13 +66,13 @@
     <div id="game-over-modal-body" class="modal-body">
       <p class="score-side-tile">Score:</p>
       <p class="gameScore"></p>
+      <div class="input-element">
+        <label for="username-input">Enter Name Here</label>
+        <input id="username-input"></textarea>
+      </div>
     </div>
 
     <div class="game-over-modal-footer">
-        <p class="enter-name-tile">Enter your name:</p>
-        <div class="input-element">
-            <textarea id="username-input"></textarea>
-        </div>
         <button type="button" class="game-modal-accept-button">Okay</button>
     </div>
     
