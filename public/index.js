@@ -6,6 +6,7 @@ var currentScore = document.querySelector(".current-score")
 var instructions = document.querySelector(".instructions")
 var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
+var closeButton = document.getElementsByClassName("modal-close-button")[1]
 var gameScore = document.querySelector(".gameScore")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
@@ -17,6 +18,13 @@ var game
 snakeArr[0] = { x: 5 * grid, y: 8 * grid }
 snakeArr[1] = { x: 4 * grid, y: 8 * grid }
 snakeArr[2] = { x: 3 * grid, y: 8 * grid }
+
+closeButton.addEventListener("click", closeModal)
+
+function closeModal() {
+    modalBackdrop.classList.add("hidden")
+    gameOverModal.classList.add("hidden")
+}
 
 /* random location for food */
 for (i = 0; i < snakeArr.length; i++) {
@@ -78,25 +86,30 @@ function endSnake(head, arr) {
 document.addEventListener("keydown", startGame)
 function startGame(event) {
     var key = event.keyCode
+    /* set difficulty of snake speed */
     if (key == 49) {
+        /* Easy: '1' */
         game = setInterval(drawSnake, 150)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
     }
     if (key == 50) {
+        /* Medium: '2' */
         game = setInterval(drawSnake, 100)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
     }
     if (key == 51) {
+        /* Hard: '3' */
         game = setInterval(drawSnake, 50)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
         document.addEventListener("keydown", moveSnake)
     }
     if (key == 52) {
+        /* Insane: '4' */
         game = setInterval(drawSnake, 25)
         instructions.classList.add("hidden")
         document.removeEventListener("keydown", startGame)
