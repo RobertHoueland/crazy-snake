@@ -16,8 +16,6 @@ var snakeFood = {
     y: Math.floor(Math.random() * 13 + 3) * grid,
 }
 
-document.addEventListener("keydown", moveSnake)
-
 function moveSnake(event) {
     // Move snake direction based on keypress key code
     var key = event.keyCode
@@ -129,4 +127,10 @@ function drawSnake() {
 }
 
 // Draw snake every 150ms (ms is speed of snake)
-var game = setInterval(drawSnake, 150)
+document.addEventListener("keydown", startGame)
+// draw snake every 150ms (ms is speed of snake)
+function startGame(){
+  var game = setInterval(drawSnake, 150)
+  document.removeEventListener("keydown", startGame)
+  document.addEventListener("keydown", moveSnake)
+}
