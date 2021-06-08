@@ -8,9 +8,7 @@ var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
 var closeButton = document.getElementsByClassName("modal-close-button")[1]
 var enterNameModal = document.getElementById("enter-name-modal")
-var okayNameButton = document.getElementsByClassName(
-    "game-modal-accept-button"
-)[0]
+var okayNameButton = document.getElementsByClassName("game-modal-accept-button")[0]
 var gameScore = document.querySelector(".gameScore")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
