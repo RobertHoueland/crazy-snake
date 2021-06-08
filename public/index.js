@@ -26,11 +26,47 @@ const snakeFace = new Image()
 snakeFace.src = "face.png"
 const gridImg = new Image()
 gridImg.src = "grid.png"
+/* icon from https://www.clker.com/clipart-simple-brown-boot.html */
+const boot = new Image()
+boot.src = "boot.png"
 
-/* random location for food */
+/* random location for food, make sure is not on snake tail */
 var snakeFood = {
     x: Math.floor(Math.random() * 15 + 1) * grid,
     y: Math.floor(Math.random() * 13 + 3) * grid,
+}
+for (i = 0; i < snakeArr.length; i++) {
+    snakeFood = {
+        x: Math.floor(Math.random() * 15 + 1) * grid,
+        y: Math.floor(Math.random() * 13 + 3) * grid,
+    }
+    if (snakeFood.x == snakeArr[i].x && snakeFood.y == snakeArr[i].y) {
+        snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
+        snakeFood.y = Math.floor(Math.random() * 13 + 3) * grid
+    } else {
+        break
+    }
+}
+
+/* random location for boot obstacle, make sure is not on snake tail or food */
+var bootObstacle = {
+    x: Math.floor(Math.random() * 15 + 1) * grid,
+    y: Math.floor(Math.random() * 13 + 3) * grid,
+}
+for (i = 0; i < snakeArr.length; i++) {
+    bootObstacle = {
+        x: Math.floor(Math.random() * 15 + 1) * grid,
+        y: Math.floor(Math.random() * 13 + 3) * grid,
+    }
+    if (
+        (bootObstacle.x == snakeArr[i].x && bootObstacle.y == snakeArr[i].y) ||
+        (bootObstacle.x == snakeFood.x && bootObstacle.y == snakeFood.y)
+    ) {
+        bootObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
+        bootObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
+    } else {
+        break
+    }
 }
 
 closeButton.addEventListener("click", closeModal)
@@ -160,6 +196,10 @@ function drawSnake() {
     canvasContext.drawImage(foodImg, snakeFood.x, snakeFood.y)
     canvasContext.strokeStyle = "black"
     canvasContext.strokeRect(snakeFood.x, snakeFood.y, grid, grid)
+    /* draw boot and black border around it */
+    canvasContext.drawImage(boot, bootObstacle.x, bootObstacle.y)
+    canvasContext.strokeStyle = "black"
+    canvasContext.strokeRect(bootObstacle.x, bootObstacle.y, grid, grid)
 
     /* get snake position */
     var snakeX = snakeArr[0].x
@@ -193,10 +233,8 @@ function drawSnake() {
                 x: Math.floor(Math.random() * 15 + 1) * grid,
                 y: Math.floor(Math.random() * 13 + 3) * grid,
             }
-            if (snakeFood.x == snakeArr[i].x) {
+            if (snakeFood.x == snakeArr[i].x && snakeFood.y == snakeArr[i].y) {
                 snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
-            }
-            if (snakeFood.y == snakeArr[i].y) {
                 snakeFood.y = Math.floor(Math.random() * 13 + 3) * grid
             } else {
                 break
@@ -219,7 +257,8 @@ function drawSnake() {
         snakeX > 15 * grid ||
         snakeY < 0 ||
         snakeY > 15 * grid ||
-        endSnake(snakeHead, snakeArr)
+        endSnake(snakeHead, snakeArr) ||
+        (snakeX == bootObstacle.x && snakeY == bootObstacle.y)
     ) {
         /* death of snake */
         gameOverModal.classList.remove("hidden")
@@ -245,5 +284,21 @@ function closeModal() {
     direction = "right"
     score = 0
     snakeArr = []
+    for (i = 0; i < snakeArr.length; i++) {
+        bootObstacle = {
+            x: Math.floor(Math.random() * 15 + 1) * grid,
+            y: Math.floor(Math.random() * 13 + 3) * grid,
+        }
+        if (
+            (bootObstacle.x == snakeArr[i].x &&
+                bootObstacle.y == snakeArr[i].y) ||
+            (bootObstacle.x == snakeFood.x && bootObstacle.y == snakeFood.y)
+        ) {
+            bootObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
+            bootObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
+        } else {
+            break
+        }
+    }
     document.addEventListener("keydown", startGame)
 }
