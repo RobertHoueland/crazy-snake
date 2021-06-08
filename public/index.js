@@ -6,8 +6,7 @@ var currentScore = document.querySelector(".current-score")
 var instructions = document.querySelector(".instructions")
 var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
-var closeButton = document.getElementsByClassName("modal-close-button")[1]
-var enterNameModal = document.getElementById("enter-name-modal")
+var closeButton = document.getElementsByClassName("modal-close-button")[0]
 var okayNameButton = document.getElementsByClassName(
     "game-modal-accept-button"
 )[0]
@@ -134,7 +133,6 @@ function closeModal() {
     modalBackdrop.classList.add("hidden")
     gameOverModal.classList.add("hidden")
 
-    //enterNameModal.classList.remove("hidden");
 }
 
 function moveSnake(event) {
