@@ -7,6 +7,10 @@ var instructions = document.querySelector(".instructions")
 var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
 var closeButton = document.getElementsByClassName("modal-close-button")[1]
+var enterNameModal = document.getElementById("enter-name-modal")
+var okayNameButton = document.getElementsByClassName(
+    "game-modal-accept-button"
+)[0]
 var gameScore = document.querySelector(".gameScore")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
@@ -26,6 +30,31 @@ snakeFace.src = "face.png"
 var snakeFood = {
     x: Math.floor(Math.random() * 15 + 1) * grid,
     y: Math.floor(Math.random() * 13 + 3) * grid,
+}
+
+closeButton.addEventListener("click", closeModal)
+okayNameButton.addEventListener("click", enterHighScore)
+
+function enterHighScore() {
+    var username = document.getElementById("username-input").value
+
+    var userInfo = {
+        name: username,
+        score: score,
+    }
+
+    var scoreHTML = Handlebars.templates.table(userInfo)
+    var scoreContainer = document.querySelector(".score-container")
+    scoreContainer.insertAdjacentHTML("beforeend", scoreHTML)
+
+    closeModal()
+}
+
+function closeModal() {
+    modalBackdrop.classList.add("hidden")
+    gameOverModal.classList.add("hidden")
+
+    //enterNameModal.classList.remove("hidden");
 }
 
 function moveSnake(event) {
