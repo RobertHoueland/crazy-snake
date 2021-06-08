@@ -36,17 +36,17 @@ a {
   color: white;
   text-decoration: none;
 }
-
+.instructions-container{
+  position: absolute;
+  text-align: left;
+}
 .instructions {
   font-family: Helvetica;
   font-size: 25px;
-  padding-left: 20px;
-  text-align: center;
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  height: 100px;
+  display: inline-block;
+  text-align: left;
 }
+
 .game-container {
   display: flex;
   justify-content: center;
