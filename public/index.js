@@ -6,13 +6,11 @@ var currentScore = document.querySelector(".current-score")
 var instructions = document.querySelector(".instructions")
 var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
-<<<<<<< HEAD
-var closeButton = document.getElementsByClassName("modal-close-button")[1];
-var enterNameModal = document.getElementById("enter-name-modal");
-var okayNameButton = document.getElementsByClassName("game-modal-accept-button")[0];
-=======
 var closeButton = document.getElementsByClassName("modal-close-button")[1]
->>>>>>> 1c4e335ac43499651c8454d06bee9e263e4fe2de
+var enterNameModal = document.getElementById("enter-name-modal")
+var okayNameButton = document.getElementsByClassName(
+    "game-modal-accept-button"
+)[0]
 var gameScore = document.querySelector(".gameScore")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
@@ -21,45 +19,42 @@ var direction = "right"
 var currDirection
 var game
 
-<<<<<<< HEAD
-/* starting location for snake head and tail */
-snakeArr[0] = { x: 5 * grid, y: 8 * grid }
-snakeArr[1] = { x: 4 * grid, y: 8 * grid }
-snakeArr[2] = { x: 3 * grid, y: 8 * grid }
+/* food icon made in MS paint */
+const foodImg = new Image()
+foodImg.src = "food.png"
 
+const snakeFace = new Image()
+snakeFace.src = "face.png"
 
-closeButton.addEventListener('click', closeModal);
-okayNameButton.addEventListener('click', enterHighScore);
-
-function enterHighScore(){
-	
-    var username = document.getElementById('username-input').value;
-
-    var userInfo = {
-        name: username,
-        score: score
-    }
-
-    var scoreHTML = Handlebars.templates.table(userInfo);
-	var scoreContainer = document.querySelector('.score-container');
-	scoreContainer.insertAdjacentHTML('beforeend', scoreHTML);
-        
-    closeModal();
-}
-
-function closeModal(){
-	modalBackdrop.classList.add("hidden");
-	gameOverModal.classList.add("hidden");
-	
-	//enterNameModal.classList.remove("hidden");
-}
-
-=======
->>>>>>> 1c4e335ac43499651c8454d06bee9e263e4fe2de
 /* random location for food */
 var snakeFood = {
     x: Math.floor(Math.random() * 15 + 1) * grid,
     y: Math.floor(Math.random() * 13 + 3) * grid,
+}
+
+closeButton.addEventListener("click", closeModal)
+okayNameButton.addEventListener("click", enterHighScore)
+
+function enterHighScore() {
+    var username = document.getElementById("username-input").value
+
+    var userInfo = {
+        name: username,
+        score: score,
+    }
+
+    var scoreHTML = Handlebars.templates.table(userInfo)
+    var scoreContainer = document.querySelector(".score-container")
+    scoreContainer.insertAdjacentHTML("beforeend", scoreHTML)
+
+    closeModal()
+}
+
+function closeModal() {
+    modalBackdrop.classList.add("hidden")
+    gameOverModal.classList.add("hidden")
+
+    //enterNameModal.classList.remove("hidden");
 }
 
 function moveSnake(event) {
@@ -93,6 +88,7 @@ function moveSnake(event) {
 }
 
 function endSnake(head, arr) {
+    /* check if snake runs into itself */
     for (i = 0; i < arr.length; i++) {
         if (head.x == arr[i].x && head.y == arr[i].y) {
             return true
@@ -145,19 +141,23 @@ function drawSnake() {
     /* clear canvas each draw */
     canvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
     for (i = 0; i < snakeArr.length; i++) {
+        /* draw head of snake dark green, tail light green */
         if (i == 0) {
-            canvasContext.fillStyle = "Green"
+            canvasContext.drawImage(snakeFace, snakeArr[i].x, snakeArr[i].y)
         } else {
             canvasContext.fillStyle = "Chartreuse"
+            canvasContext.fillRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
         }
-        canvasContext.fillRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
 
+        /* blue border around snake */
         canvasContext.strokeStyle = "blue"
         canvasContext.strokeRect(snakeArr[i].x, snakeArr[i].y, grid, grid)
     }
 
-    canvasContext.fillStyle = "Red"
-    canvasContext.fillRect(snakeFood.x, snakeFood.y, grid, grid)
+    /* draw food img and black border around it */
+    canvasContext.drawImage(foodImg, snakeFood.x, snakeFood.y)
+    canvasContext.strokeStyle = "black"
+    canvasContext.strokeRect(snakeFood.x, snakeFood.y, grid, grid)
 
     /* get snake position */
     var snakeX = snakeArr[0].x
