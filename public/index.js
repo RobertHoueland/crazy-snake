@@ -51,11 +51,9 @@ var birdObstacle = {
 }
 
 function findFoodLocation() {
+    snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
+    snakeFood.y = Math.floor(Math.random() * 13 + 3) * grid
     for (i = 0; i < snakeArr.length; i++) {
-        snakeFood = {
-            x: Math.floor(Math.random() * 15 + 1) * grid,
-            y: Math.floor(Math.random() * 13 + 3) * grid,
-        }
         if (
             (snakeFood.x == snakeArr[i].x && snakeFood.y == snakeArr[i].y) ||
             (snakeFood.x == birdObstacle.x && snakeFood.y == birdObstacle.y) ||
@@ -68,11 +66,9 @@ function findFoodLocation() {
 }
 
 function findBootLocation() {
+    bootObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
+    bootObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
     for (i = 0; i < snakeArr.length; i++) {
-        bootObstacle = {
-            x: Math.floor(Math.random() * 15 + 1) * grid,
-            y: Math.floor(Math.random() * 13 + 3) * grid,
-        }
         if (
             (bootObstacle.x == snakeArr[i].x &&
                 bootObstacle.y == snakeArr[i].y) ||
@@ -87,11 +83,9 @@ function findBootLocation() {
 }
 
 function findBirdLocation() {
+    birdObstacle.x = Math.floor(Math.random() * 15 + 1) * grid
+    birdObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
     for (i = 0; i < snakeArr.length; i++) {
-        birdObstacle = {
-            x: Math.floor(Math.random() * 15 + 1) * grid,
-            y: Math.floor(Math.random() * 13 + 3) * grid,
-        }
         if (
             (birdObstacle.x == snakeArr[i].x &&
                 birdObstacle.y == snakeArr[i].y) ||
