@@ -5,9 +5,11 @@ var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 sq
 var snakeArr = []
 var score = 0
 var direction = "right"
+
 /* starting location for snake head and tail */
-snakeArr[0] = { x: 9 * grid, y: 8 * grid }
-snakeArr[1] = { x: 8 * grid, y: 8 * grid }
+snakeArr[0] = { x: 5 * grid, y: 8 * grid }
+snakeArr[1] = { x: 4 * grid, y: 8 * grid }
+
 /* random location for food */
 var snakeFood = {
     x: Math.floor(Math.random() * 15 + 1) * grid,
@@ -48,6 +50,7 @@ function moveSnake(event) {
 
 function collision(head, arr) {
     for (i = 0; i < arr.length; i++) {
+        console.log(head.x, arr[i].x)
         if (head.x == arr[i].x && head.y == arr[i].y) {
             return true
         }
@@ -75,8 +78,6 @@ function drawSnake() {
     var snakeX = snakeArr[0].x
     var snakeY = snakeArr[0].y
 
-    console.log(direction, snakeX, snakeY)
-
     // Check direction
     if (direction == "left") {
         snakeX -= grid
@@ -91,12 +92,9 @@ function drawSnake() {
         snakeY += grid
     }
 
-    console.log(direction, snakeX, snakeY)
-
     // if the snake eats the food
     if (snakeX == snakeFood.x && snakeY == snakeFood.y) {
         score++
-        eat.play()
         snakeFood = {
             x: Math.floor(Math.random() * 15 + 1) * grid,
             y: Math.floor(Math.random() * 13 + 3) * grid,
@@ -112,20 +110,23 @@ function drawSnake() {
         y: snakeY,
     }
 
+    /* Check if snake hits edges of box or itself */
     if (
-        snakeX < grid ||
+        snakeX < 0 ||
         snakeX > 15 * grid ||
-        snakeY < 3 * grid ||
+        snakeY < 0 ||
         snakeY > 15 * grid ||
         collision(newHead, snakeArr)
     ) {
+        //death
         clearInterval(game)
     }
 
     snakeArr.unshift(newHead)
 
+    /* Update score on page */
     currentScore.textContent = "Current Score: " + score
 }
 
-// Draw snake every 100ms
-var game = setInterval(drawSnake, 100)
+// Draw snake every 150ms (ms is speed of snake)
+var game = setInterval(drawSnake, 150)
