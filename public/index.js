@@ -7,6 +7,8 @@ var instructions = document.querySelector(".instructions")
 var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
 var closeButton = document.getElementsByClassName("modal-close-button")[1];
+var enterNameModal = document.getElementById("enter-name-modal");
+var okayNameButton = document.getElementsByClassName("game-modal-accept-button")[0];
 var gameScore = document.querySelector(".gameScore")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
@@ -19,11 +21,31 @@ snakeArr[0] = { x: 5 * grid, y: 8 * grid }
 snakeArr[1] = { x: 4 * grid, y: 8 * grid }
 snakeArr[2] = { x: 3 * grid, y: 8 * grid }
 
+
 closeButton.addEventListener('click', closeModal);
+okayNameButton.addEventListener('click', enterHighScore);
+
+function enterHighScore(){
+	
+    var username = document.getElementById('username-input').value;
+
+    var userInfo = {
+        name: username,
+        score: score
+    }
+
+    var scoreHTML = Handlebars.templates.table(userInfo);
+	var scoreContainer = document.querySelector('.score-container');
+	scoreContainer.insertAdjacentHTML('beforeend', scoreHTML);
+        
+    closeModal();
+}
 
 function closeModal(){
 	modalBackdrop.classList.add("hidden");
 	gameOverModal.classList.add("hidden");
+	
+	//enterNameModal.classList.remove("hidden");
 }
 
 /* random location for food */
