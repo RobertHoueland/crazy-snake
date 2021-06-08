@@ -4,22 +4,6 @@
 <p class="current-score">
   Current Score: 
 </p>
-<main class="game-container">
-  <p class="instructions">
-    Use WASD keys or arrow keys to play!
-    <br>
-    <br>
-    Select difficulty to start:
-    <br>
-    1: Easy
-    <br>
-    2: Medium
-    <br>
-    3: Hard
-    <br>
-    4: Ultra
-  </p>
-  <canvas class="game-box" width="512" height="512"></canvas>
 
 <div class="score-grid">
   <div id="name-header">Player</div>
@@ -29,6 +13,21 @@
     {{> table}}
   {{/each}}
 </div>
+
+<main class="game-container">
+  <canvas class="game-box" width="512" height="512"></canvas>
+  <div class="instructions-container">
+    <p class="instructions">
+      Use WASD keys or arrow keys to play!
+      <br><br>
+      Select difficulty to start:<br>
+      1: Easy<br>
+      2: Medium<br>
+      3: Hard<br>
+      4: Ultra
+    </p>
+  </div>
+</main>
 
 <div id="modal-backdrop" class="hidden"></div>
 
