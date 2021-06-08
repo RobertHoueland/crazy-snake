@@ -256,10 +256,8 @@ a {
 
 footer {
     font-size: 20px;
-    position: fixed;
     text-align: center;
-    bottom: 25px;
-    margin: auto;
+    padding-top: 600px;
     width: 100%;
 }
 
@@ -267,13 +265,13 @@ footer {
     header {
         padding-bottom: 75px;
     }
-    .score-grid {
-        margin-top: 600px;
-    }
 }
 
 @media (max-width: 1150px) {
     .score-grid {
         margin-top: 600px;
+    }
+    footer {
+        padding-top: 900px;
     }
 }
