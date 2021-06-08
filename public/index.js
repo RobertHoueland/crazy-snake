@@ -11,7 +11,8 @@ var gameScore = document.querySelector(".gameScore")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
 var score = 0
-var direction
+var direction = "right"
+var currDirection
 var game
 
 /* random location for food */
@@ -24,26 +25,26 @@ function moveSnake(event) {
     /* move snake direction based on keypress key code */
     var key = event.keyCode
     if (
-        (key == 37 && direction != "right") ||
-        (key == 65 && direction != "right")
+        (key == 37 && currDirection != "right") ||
+        (key == 65 && currDirection != "right")
     ) {
         // 'A' key or left arrow key
         direction = "left"
     } else if (
-        (key == 38 && direction != "down") ||
-        (key == 87 && direction != "down")
+        (key == 38 && currDirection != "down") ||
+        (key == 87 && currDirection != "down")
     ) {
         // 'W' key or up arrow key
         direction = "up"
     } else if (
-        (key == 39 && direction != "left") ||
-        (key == 68 && direction != "left")
+        (key == 39 && currDirection != "left") ||
+        (key == 68 && currDirection != "left")
     ) {
         // 'D' key or right arrow key
         direction = "right"
     } else if (
-        (key == 40 && direction != "up") ||
-        (key == 83 && direction != "up")
+        (key == 40 && currDirection != "up") ||
+        (key == 83 && currDirection != "up")
     ) {
         // 'S' key or down arrow key
         direction = "down"
@@ -100,9 +101,6 @@ function startGame(event) {
 
 /* Runs game */
 function drawSnake() {
-    if (direction == undefined) {
-        direction = "right"
-    }
     for (i = 0; i < snakeArr.length; i++) {
         if (i == 0) {
             canvasContext.fillStyle = "Green"
@@ -126,15 +124,19 @@ function drawSnake() {
     /* check direction and move snake */
     if (direction == "left") {
         snakeX -= grid
+        currDirection = "left"
     }
     if (direction == "up") {
         snakeY -= grid
+        currDirection = "up"
     }
     if (direction == "right") {
         snakeX += grid
+        currDirection = "right"
     }
     if (direction == "down") {
         snakeY += grid
+        currDirection = "down"
     }
 
     /* if snake eats the food */
@@ -196,5 +198,7 @@ function closeModal() {
     instructions.classList.remove("hidden")
     /* clear board and restart game */
     canvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
+    direction = "right"
+    // DELETE SNAKE
     document.addEventListener("keydown", startGame)
 }
