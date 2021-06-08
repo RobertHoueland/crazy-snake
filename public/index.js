@@ -6,6 +6,7 @@ var currentScore = document.querySelector(".current-score")
 var instructions = document.querySelector(".instructions")
 var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
+var closeButton = document.getElementsByClassName("modal-close-button")[1];
 var gameScore = document.querySelector(".gameScore")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
@@ -17,6 +18,13 @@ var game
 snakeArr[0] = { x: 5 * grid, y: 8 * grid }
 snakeArr[1] = { x: 4 * grid, y: 8 * grid }
 snakeArr[2] = { x: 3 * grid, y: 8 * grid }
+
+closeButton.addEventListener('click', closeModal);
+
+function closeModal(){
+	modalBackdrop.classList.add("hidden");
+	gameOverModal.classList.add("hidden");
+}
 
 /* random location for food */
 for (i = 0; i < snakeArr.length; i++) {
