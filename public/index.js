@@ -283,7 +283,6 @@ function closeModal() {
     canvasContext.clearRect(0, 0, gameCanvas.width, gameCanvas.height)
     direction = "right"
     score = 0
-    snakeArr = []
     for (i = 0; i < snakeArr.length; i++) {
         bootObstacle = {
             x: Math.floor(Math.random() * 15 + 1) * grid,
@@ -300,5 +299,6 @@ function closeModal() {
             break
         }
     }
+    snakeArr = []
     document.addEventListener("keydown", startGame)
 }
