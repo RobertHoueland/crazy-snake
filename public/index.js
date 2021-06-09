@@ -116,6 +116,10 @@ function findFoxLocation() {
 }
 
 function enterHighScore() {
+    if (username.value == "") {
+        alert("Enter a username to submit your score!")
+        return
+    }
     var userInfo = {
         name: username.value,
         score: score,
