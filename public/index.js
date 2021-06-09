@@ -358,6 +358,13 @@ function drawSnake() {
 }
 
 function closeModal() {
+    if (
+        !confirm(
+            "Your score will not be submitted to leaderboards!\n\nPress OK to continue, or cancel to go back"
+        )
+    ) {
+        return
+    }
     username.value = ""
     modalBackdrop.classList.add("hidden")
     gameOverModal.classList.add("hidden")
