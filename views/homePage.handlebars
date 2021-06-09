@@ -5,9 +5,7 @@
 {{/if}}
 
 <div class="score-grid">
-  <div id="name-header">Player</div>
-  <div id="score-header">Score</div>
-  
+  <div id="score-header">Leader Board</div>
   {{#each players}}
     {{> table}}
   {{/each}}
@@ -35,25 +33,21 @@
 
 <div id="game-over-modal" class="hidden">
   <div id="game-over-modal-dialog" class="modal-dialog">
-
     <div id="game-over-modal-header" class="modal-header">
       <h3>Game Over</h3>
       <button type="button" class="modal-close-button">&times;</button>
     </div>
-
     <div id="game-over-modal-body" class="modal-body">
       <p class="score-side-tile">Score:</p>
-      <p class="gameScore"></p>
+      <p class="game-score"></p>
       <div class="input-element">
-        <label for="username-input">Enter Name Here</label>
-        <input id="username-input"></textarea>
+        <label for="username-input">Name: </label>
+        <input id="username-input"></input>
       </div>
     </div>
-
     <div class="game-over-modal-footer">
         <button type="button" class="game-modal-accept-button">Okay</button>
     </div>
-    
   </div>
 </div>
 {{/if}}

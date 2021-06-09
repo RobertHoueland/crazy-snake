@@ -7,8 +7,20 @@ var instructions = document.querySelector(".instructions")
 var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
 var closeButton = document.getElementsByClassName("modal-close-button")[0]
-var okayNameButton = document.getElementsByClassName("game-modal-accept-button")[0]
-var gameScore = document.querySelector(".gameScore")
+// Credit to https://www.codeexplained.org for explaining canvas elements and how to use them
+
+var gameCanvas = document.querySelector(".game-box")
+var canvasContext = gameCanvas.getContext("2d")
+var currentScore = document.querySelector(".current-score")
+var instructions = document.querySelector(".instructions")
+var gameOverModal = document.getElementById("game-over-modal")
+var modalBackdrop = document.getElementById("modal-backdrop")
+var closeButton = document.getElementsByClassName("modal-close-button")[0]
+var okayNameButton = document.getElementsByClassName(
+    "game-modal-accept-button"
+)[0]
+var gameScore = document.querySelector(".game-score")
+var username = document.getElementById("username-input")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
 var score = 0
@@ -38,6 +50,9 @@ bird.src = "bird.png"
 /* icon from https://www.pinterest.com/pin/193021534009808883/ */
 const fox = new Image()
 fox.src = "fox.png"
+
+closeButton.addEventListener("click", closeModal)
+okayNameButton.addEventListener("click", enterHighScore)
 
 function findFoodLocation() {
     snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
@@ -107,6 +122,25 @@ function findFoxLocation() {
             foxObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
         }
     }
+}
+
+function enterHighScore() {
+    var userInfo = {
+        name: username.value,
+        score: score,
+    }
+    var request = new XMLHttpRequest()
+    var requestURL = "submit"
+    request.open("POST", requestURL)
+    var requestBody = JSON.stringify(userInfo)
+    request.setRequestHeader("Content-Type", "application/json")
+    request.send(requestBody)
+
+    // var scoreHTML = Handlebars.templates.table(userInfo)
+    // var scoreContainer = document.querySelector(".score-container")
+    // scoreContainer.insertAdjacentHTML("beforeend", scoreHTML)
+
+    closeModal()
 }
 
 function moveSnake(event) {
@@ -299,7 +333,10 @@ function drawSnake() {
         (snakeX == foxObstacle.x && snakeY == foxObstacle.y)
     ) {
         /* death of snake */
-        showGameOverModal()
+        setTimeout(() => {
+            gameOverModal.classList.remove("hidden")
+            modalBackdrop.classList.remove("hidden")
+        }, 350)
         gameScore.textContent = score
         clearInterval(game)
         clearInterval(birdFly)
@@ -312,10 +349,8 @@ function drawSnake() {
     currentScore.textContent = "Current Score: " + score
 }
 
-closeButton.addEventListener("click", closeModal)
-okayNameButton.addEventListener("click", enterHighScore)
-
 function closeModal() {
+    username.value = ""
     modalBackdrop.classList.add("hidden")
     gameOverModal.classList.add("hidden")
     instructions.classList.remove("hidden")
@@ -331,38 +366,6 @@ function closeModal() {
     document.addEventListener("keydown", startGame)
 }
 
-function showGameOverModal(){
-    gameOverModal.classList.remove("hidden")
-    modalBackdrop.classList.remove("hidden")
-}
-
-function enterHighScore() {
-    
-    var username = document.getElementById('username-input').value();
-    //call server.js with username and user score
-
-    if (!username) {
-        alert("You must fill in all of the fields!");
-    } else {
-
-        var req = new XMLHttpRequest()
-        var reqUrl = '/addScores'
-        console.log("== reqUrl:", reqUrl)
-        req.open('POST', reqUrl)
-
-        var userData = {
-            name: photoURL,
-            score: score
-        }
-
-        var reqBody = JSON.stringify(userData)
-        console.log("== reqBody:", reqBody)
-        console.log("== reqBody.url:", reqBody.url)
-        console.log("== typeof(reqBody):", typeof(reqBody))
-
-        req.setRequestHeader('Content-Type', 'application/json')
-
-        req.send(reqBody)
-
-        closeModal()
+window.onload = function () {
+    username.value = ""
 }
