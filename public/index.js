@@ -4,11 +4,14 @@ var gameCanvas = document.querySelector(".game-box")
 var canvasContext = gameCanvas.getContext("2d")
 var currentScore = document.querySelector(".current-score")
 var instructions = document.querySelector(".instructions")
+
 var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
 var closeButton = document.getElementsByClassName("modal-close-button")[1]
 var enterNameModal = document.getElementById("enter-name-modal")
 var okayNameButton = document.getElementsByClassName("game-modal-accept-button")[0]
+const fs = require('fs');
+
 var gameScore = document.querySelector(".gameScore")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
@@ -110,30 +113,6 @@ function findFoxLocation() {
     }
 }
 
-closeButton.addEventListener("click", closeModal)
-okayNameButton.addEventListener("click", enterHighScore)
-
-function enterHighScore() {
-    var username = document.getElementById("username-input").value
-
-    var userInfo = {
-        name: username,
-        score: score,
-    }
-
-    var scoreHTML = Handlebars.templates.table(userInfo)
-    var scoreContainer = document.querySelector(".score-container")
-    scoreContainer.insertAdjacentHTML("beforeend", scoreHTML)
-
-    closeModal()
-}
-
-function closeModal() {
-    modalBackdrop.classList.add("hidden")
-    gameOverModal.classList.add("hidden")
-
-    //enterNameModal.classList.remove("hidden");
-}
 
 function moveSnake(event) {
     /* move snake direction based on keypress key code */
@@ -325,8 +304,7 @@ function drawSnake() {
         (snakeX == foxObstacle.x && snakeY == foxObstacle.y)
     ) {
         /* death of snake */
-        gameOverModal.classList.remove("hidden")
-        modalBackdrop.classList.remove("hidden")
+        showGameOverModal();
         gameScore.textContent = score
         clearInterval(game)
         clearInterval(birdFly)
@@ -339,7 +317,10 @@ function drawSnake() {
     currentScore.textContent = "Current Score: " + score
 }
 
+
+
 closeButton.addEventListener("click", closeModal)
+okayNameButton.addEventListener("click", enterHighScore)
 
 function closeModal() {
     modalBackdrop.classList.add("hidden")
@@ -355,4 +336,36 @@ function closeModal() {
     findFoxLocation()
     snakeArr = []
     document.addEventListener("keydown", startGame)
+}
+
+
+function showGameOverModal(){
+    gameOverModal.classList.remove("hidden")
+    modalBackdrop.classList.remove("hidden")
+}
+
+function enterHighScore() {
+
+    //var userName = document.getElementById("username-input").value;
+    //var userScore = score;
+
+    /*
+    if (!username){
+        alert("You must enter a name to save your score!");
+    }
+    else {
+        
+        let userData = fs.readFileSync('./testData.json');
+        userData = JSON.parse(userData);
+
+        userData.push({
+            "name": userName,
+            "score": userScore
+        });
+
+        fs.writeFileSync('./testData.json', JSON.stringify(userData));
+    }*/
+
+    closeModal()
+    res.status(200).render("homePage", { displayAll: true, players: scoreData })
 }
