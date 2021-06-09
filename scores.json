@@ -1,10 +1,10 @@
 [
   {
-    "username": "1",
-    "score": 0
+    "name": "sam",
+    "score": 10000
   },
   {
-    "username": "1",
-    "score": 0
+    "name": "phil",
+    "score": 1
   }
 ]

@@ -24,7 +24,7 @@ app.get("/", function (req, res, next) {
 
 app.post("/submit", function (req, res) {
     var user = {
-        username: req.body.name,
+        name: req.body.name,
         score: req.body.score,
     }
     if (user) {
