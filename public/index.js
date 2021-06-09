@@ -43,7 +43,16 @@ bird.src = "bird.png"
 const fox = new Image()
 fox.src = "fox.png"
 
-closeButton.addEventListener("click", closeModal)
+closeButton.addEventListener("click", function () {
+    if (
+        !confirm(
+            "Your score will not be submitted to leaderboards!\n\nPress OK to continue, or cancel to go back"
+        )
+    ) {
+        return
+    }
+    closeModal()
+})
 okayNameButton.addEventListener("click", enterHighScore)
 /* press enter to click submit on score */
 username.addEventListener("keyup", function (event) {
@@ -358,13 +367,6 @@ function drawSnake() {
 }
 
 function closeModal() {
-    if (
-        !confirm(
-            "Your score will not be submitted to leaderboards!\n\nPress OK to continue, or cancel to go back"
-        )
-    ) {
-        return
-    }
     username.value = ""
     modalBackdrop.classList.add("hidden")
     gameOverModal.classList.add("hidden")
