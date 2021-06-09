@@ -1,41 +1,47 @@
-<!DOCTYPE html>
 <html>
-  <head>
+    <head>
 
-    <meta charset="utf-8">
-    <title>Crazy Snake</title>
+        <meta charset="utf-8" />
+        <title>Crazy Snake</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    
-    <!-- This is a 3rd-party stylesheet to make available the font family to be used for this page ("Abel"). -->
-    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
 
-    <link rel="stylesheet" href="/style.css" media="screen">
+        <!-- This is a 3rd-party stylesheet to make available the font family to be used for this page ("Abel"). -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Abel&display=swap"
+            rel="stylesheet"
+        />
 
-    {{!-- Free to use snake icon from https://iconarchive.com/show/animal-icons-by-martin-berube/snake-icon.html --}}
-    <link rel="shortcut icon" href="favicon.ico" />
-    
-    <!-- This let's us use handlebars -->
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.runtime.js"></script>
-    
-    <script src="/index.js" charset="utf-8" defer></script>
-    
-  </head>
+        <link rel="stylesheet" href="/style.css" media="screen" />
 
-  <body>
-    <header>
-      <h1 class="site-title"><a href="/">Crazy Snake</a></h1>
-      <img src="snake-icon.png" />
-    </header>
-  
-    {{{body}}}
-    
-  </body>
+        {{! Free to use snake icon from https://iconarchive.com/show/animal-icons-by-martin-berube/snake-icon.html }}
+        <link rel="shortcut icon" href="favicon.ico" />
 
-  <footer>
-    <p>Created by: Robert Houeland, Phillip Dinh, Sam Knox, Omar Mejia</p>
-  </footer>
+        <!-- This let's us use handlebars -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.runtime.js"
+        ></script>
+
+        <script src="/tableTemplate.js" charset="utf-8" defer></script>
+
+        <script src="/index.js" charset="utf-8" defer></script>
+
+    </head>
+
+    <body>
+        <header>
+            <h1 class="site-title"><a href="/">Crazy Snake</a></h1>
+            <img src="snake-icon.png" />
+        </header>
+
+        {{{body}}}
+
+    </body>
+
+    <footer>
+        <p>Created by: Robert Houeland, Phillip Dinh, Sam Knox, Omar Mejia</p>
+    </footer>
 
 </html>
