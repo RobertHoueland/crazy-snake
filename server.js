@@ -29,6 +29,11 @@ app.post("/submit", function (req, res) {
     }
     if (user) {
         scoreData.push(user)
+
+        scoreData.sort(function(a, b){
+            return a.score - b.score;
+        });
+
         fs.writeFile(
             "./scores.json",
             JSON.stringify(scoreData, null, 2),
