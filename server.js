@@ -18,10 +18,6 @@ app.get("/", function (req, res, next) {
     res.status(200).render("homePage", { displayAll: true, players: scoreData })
 })
 
-app.get("/scores", function (req, res, next) {
-    res.status(200).render("homePage", { players: scoreData })
-})
-
 app.get("*", function (req, res, next) {
     res.status(404).render("404Page")
 })
