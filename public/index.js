@@ -11,6 +11,7 @@ var okayNameButton = document.getElementsByClassName(
     "game-modal-accept-button"
 )[0]
 var gameScore = document.querySelector(".game-score")
+var username = document.getElementById("username-input")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
 var score = 0
@@ -40,6 +41,9 @@ bird.src = "bird.png"
 /* icon from https://www.pinterest.com/pin/193021534009808883/ */
 const fox = new Image()
 fox.src = "fox.png"
+
+closeButton.addEventListener("click", closeModal)
+okayNameButton.addEventListener("click", enterHighScore)
 
 function findFoodLocation() {
     snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
@@ -111,27 +115,23 @@ function findFoxLocation() {
     }
 }
 
-closeButton.addEventListener("click", closeModal)
-okayNameButton.addEventListener("click", enterHighScore)
-
 function enterHighScore() {
-    var username = document.getElementById("username-input").value
-
     var userInfo = {
-        name: username,
+        name: username.value,
         score: score,
     }
+    var request = new XMLHttpRequest()
+    var requestURL = "submit"
+    request.open("POST", requestURL)
+    var requestBody = JSON.stringify(userInfo)
+    request.setRequestHeader("Content-Type", "application/json")
+    request.send(requestBody)
 
-    var scoreHTML = Handlebars.templates.table(userInfo)
-    var scoreContainer = document.querySelector(".score-container")
-    scoreContainer.insertAdjacentHTML("beforeend", scoreHTML)
+    // var scoreHTML = Handlebars.templates.table(userInfo)
+    // var scoreContainer = document.querySelector(".score-container")
+    // scoreContainer.insertAdjacentHTML("beforeend", scoreHTML)
 
     closeModal()
-}
-
-function closeModal() {
-    modalBackdrop.classList.add("hidden")
-    gameOverModal.classList.add("hidden")
 }
 
 function moveSnake(event) {
@@ -340,9 +340,8 @@ function drawSnake() {
     currentScore.textContent = "Current Score: " + score
 }
 
-closeButton.addEventListener("click", closeModal)
-
 function closeModal() {
+    username.value = ""
     modalBackdrop.classList.add("hidden")
     gameOverModal.classList.add("hidden")
     instructions.classList.remove("hidden")
@@ -356,4 +355,8 @@ function closeModal() {
     findFoxLocation()
     snakeArr = []
     document.addEventListener("keydown", startGame)
+}
+
+window.onload = function () {
+    username.value = ""
 }
