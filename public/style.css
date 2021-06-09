@@ -25,13 +25,6 @@ img {
     padding-left: 20px;
     padding-top: 10px;
 }
-.scores-link {
-    position: relative;
-    right: 10px;
-    color: white;
-    font-size: 45px;
-    float: right;
-}
 a {
     color: white;
     text-decoration: none;
