@@ -19,6 +19,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static("public"))
 
 app.get("/", function (req, res, next) {
+    /* sort leaderboards by score */
+    scoreData.sort(function (a, b) {
+        return b.score - a.score
+    })
     res.status(200).render("homePage", { displayAll: true, players: scoreData })
 })
 
@@ -29,10 +33,6 @@ app.post("/submit", function (req, res) {
     }
     if (user) {
         scoreData.push(user)
-
-        scoreData.sort(function(a, b){
-            return a.score - b.score;
-        });
 
         fs.writeFile(
             "./scores.json",

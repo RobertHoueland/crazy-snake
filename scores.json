@@ -1,18 +1,14 @@
 [
-  {
-    "name": "phil",
-    "score": 1
-  },
-  {
-    "name": "test1",
-    "score": 1
-  },
-  {
-    "name": "test",
-    "score": 2
-  },
-  {
-    "name": "sam",
-    "score": 10000
-  }
+    {
+        "name": "phil",
+        "score": 1
+    },
+    {
+        "name": "robert",
+        "score": 1
+    },
+    {
+        "name": "sam",
+        "score": 10000
+    }
 ]
