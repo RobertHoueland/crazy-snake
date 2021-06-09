@@ -132,7 +132,6 @@ function enterHighScore() {
 function closeModal() {
     modalBackdrop.classList.add("hidden")
     gameOverModal.classList.add("hidden")
-
 }
 
 function moveSnake(event) {
@@ -325,8 +324,10 @@ function drawSnake() {
         (snakeX == foxObstacle.x && snakeY == foxObstacle.y)
     ) {
         /* death of snake */
-        gameOverModal.classList.remove("hidden")
-        modalBackdrop.classList.remove("hidden")
+        setTimeout(() => {
+            gameOverModal.classList.remove("hidden")
+            modalBackdrop.classList.remove("hidden")
+        }, 350)
         gameScore.textContent = score
         clearInterval(game)
         clearInterval(birdFly)
