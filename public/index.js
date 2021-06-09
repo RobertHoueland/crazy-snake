@@ -7,9 +7,7 @@ var instructions = document.querySelector(".instructions")
 var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
 var closeButton = document.getElementsByClassName("modal-close-button")[0]
-var okayNameButton = document.getElementsByClassName(
-    "game-modal-accept-button"
-)[0]
+var okayNameButton = document.getElementsByClassName("game-modal-accept-button")[0]
 var gameScore = document.querySelector(".gameScore")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
@@ -109,30 +107,6 @@ function findFoxLocation() {
             foxObstacle.y = Math.floor(Math.random() * 13 + 3) * grid
         }
     }
-}
-
-closeButton.addEventListener("click", closeModal)
-okayNameButton.addEventListener("click", enterHighScore)
-
-function enterHighScore() {
-    var username = document.getElementById("username-input").value
-
-    var userInfo = {
-        name: username,
-        score: score,
-    }
-
-    var scoreHTML = Handlebars.templates.table(userInfo)
-    var scoreContainer = document.querySelector(".score-container")
-    scoreContainer.insertAdjacentHTML("beforeend", scoreHTML)
-
-    closeModal()
-}
-
-function closeModal() {
-    modalBackdrop.classList.add("hidden")
-    gameOverModal.classList.add("hidden")
-
 }
 
 function moveSnake(event) {
@@ -325,8 +299,7 @@ function drawSnake() {
         (snakeX == foxObstacle.x && snakeY == foxObstacle.y)
     ) {
         /* death of snake */
-        gameOverModal.classList.remove("hidden")
-        modalBackdrop.classList.remove("hidden")
+        showGameOverModal()
         gameScore.textContent = score
         clearInterval(game)
         clearInterval(birdFly)
@@ -340,6 +313,7 @@ function drawSnake() {
 }
 
 closeButton.addEventListener("click", closeModal)
+okayNameButton.addEventListener("click", enterHighScore)
 
 function closeModal() {
     modalBackdrop.classList.add("hidden")
@@ -355,4 +329,40 @@ function closeModal() {
     findFoxLocation()
     snakeArr = []
     document.addEventListener("keydown", startGame)
+}
+
+function showGameOverModal(){
+    gameOverModal.classList.remove("hidden")
+    modalBackdrop.classList.remove("hidden")
+}
+
+function enterHighScore() {
+    
+    var username = document.getElementById('username-input').value();
+    //call server.js with username and user score
+
+    if (!username) {
+        alert("You must fill in all of the fields!");
+    } else {
+
+        var req = new XMLHttpRequest()
+        var reqUrl = '/addScores'
+        console.log("== reqUrl:", reqUrl)
+        req.open('POST', reqUrl)
+
+        var userData = {
+            name: photoURL,
+            score: score
+        }
+
+        var reqBody = JSON.stringify(userData)
+        console.log("== reqBody:", reqBody)
+        console.log("== reqBody.url:", reqBody.url)
+        console.log("== typeof(reqBody):", typeof(reqBody))
+
+        req.setRequestHeader('Content-Type', 'application/json')
+
+        req.send(reqBody)
+
+        closeModal()
 }
