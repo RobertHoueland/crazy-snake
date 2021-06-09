@@ -133,8 +133,9 @@ a {
 }
 
 .modal-header {
-    position: relative;
-    padding: 10px 20px;
+  background-color: #e04b5a;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 .modal-header h3 {
@@ -176,13 +177,13 @@ a {
     min-height: 64px;
 }
 
-.modal-footer {
+.game-over-modal-footer {
     display: flex;
     justify-content: flex-end;
     padding: 10px 10px 20px 10px;
 }
 
-.modal-footer button {
+.game-over-modal-footer button {
     font-size: 20px;
     background-color: #fff;
     color: #333;
@@ -193,16 +194,12 @@ a {
     cursor: pointer;
 }
 
-.modal-footer .modal-cancel-button:hover {
-    background-color: #eee;
-}
-
-.modal-footer .modal-accept-button {
+.game-over-modal-footer .game-modal-accept-button {
     background-color: #e04b5a;
     color: #fff;
 }
 
-.modal-footer .modal-accept-button:hover {
+.game-over-modal-footer .game-modal-accept-button:hover {
     background-color: #e04b5a;
 }
 
@@ -214,20 +211,6 @@ a {
     right: 0;
     z-index: 1020;
     overflow: scroll;
-}
-
-#game-over-modal-dialog {
-    width: auto;
-    max-width: 200px;
-    min-height: 100px;
-    margin: 40px auto;
-    background-color: #fff;
-    border-radius: 15px;
-}
-#game-over-modal-header {
-    background-color: #e04b5a;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
 }
 
 #game-over-modal-body {
