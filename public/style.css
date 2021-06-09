@@ -124,7 +124,7 @@ a {
 
 .modal-dialog {
     width: auto;
-    max-width: 600px;
+    max-width: 400px;
     min-width: 200px;
     min-height: 250px;
     margin: 40px auto;
@@ -133,6 +133,8 @@ a {
 }
 
 .modal-header {
+  position: relative;
+  padding: 10px 20px;
   background-color: #e04b5a;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -161,20 +163,19 @@ a {
 .input-element {
     display: flex;
     align-items: center;
-    font-size: 20px;
+    font-size: 24px;
     margin: 10px 0;
 }
 
-.input-element input,
-.input-element textarea {
-    flex: 6 200px;
-    padding: 8px;
-    font-size: 20px;
-    border: 1px solid #aaa;
+.input-element label {
+  margin-right: 28px;
 }
 
-.input-element textarea {
-    min-height: 64px;
+.input-element input{
+    padding: 4px;
+    font-size: 24px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
 }
 
 .game-over-modal-footer {
@@ -190,7 +191,7 @@ a {
     border: 1px solid #333;
     border-radius: 5px;
     padding: 10px;
-    margin-right: 20px;
+    margin-right: 24px;
     cursor: pointer;
 }
 
