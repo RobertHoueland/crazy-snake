@@ -7,15 +7,6 @@ var instructions = document.querySelector(".instructions")
 var gameOverModal = document.getElementById("game-over-modal")
 var modalBackdrop = document.getElementById("modal-backdrop")
 var closeButton = document.getElementsByClassName("modal-close-button")[0]
-// Credit to https://www.codeexplained.org for explaining canvas elements and how to use them
-
-var gameCanvas = document.querySelector(".game-box")
-var canvasContext = gameCanvas.getContext("2d")
-var currentScore = document.querySelector(".current-score")
-var instructions = document.querySelector(".instructions")
-var gameOverModal = document.getElementById("game-over-modal")
-var modalBackdrop = document.getElementById("modal-backdrop")
-var closeButton = document.getElementsByClassName("modal-close-button")[0]
 var okayNameButton = document.getElementsByClassName(
     "game-modal-accept-button"
 )[0]
