@@ -1,4 +1,4 @@
-# final-project-crazy-snake
+# crazy-snake
 
 ## CS290 Final Project: Crazy Snake
 ### https://crazysnake-game.herokuapp.com/
