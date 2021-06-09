@@ -12,6 +12,7 @@ var okayNameButton = document.getElementsByClassName(
 )[0]
 var gameScore = document.querySelector(".game-score")
 var username = document.getElementById("username-input")
+var scoreGrid = document.querySelector(".score-grid")
 var grid = 32 // 32px for each grid space, 512x512px for game board, so 16x16 square grid
 var snakeArr = []
 var score = 0
@@ -44,6 +45,12 @@ fox.src = "fox.png"
 
 closeButton.addEventListener("click", closeModal)
 okayNameButton.addEventListener("click", enterHighScore)
+/* press enter to click submit on score */
+username.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+        okayNameButton.click()
+    }
+})
 
 function findFoodLocation() {
     snakeFood.x = Math.floor(Math.random() * 15 + 1) * grid
@@ -129,11 +136,17 @@ function enterHighScore() {
     request.open("POST", requestURL)
     var requestBody = JSON.stringify(userInfo)
     request.setRequestHeader("Content-Type", "application/json")
-    request.send(requestBody)
 
-    // var scoreHTML = Handlebars.templates.table(userInfo)
-    // var scoreContainer = document.querySelector(".score-container")
-    // scoreContainer.insertAdjacentHTML("beforeend", scoreHTML)
+    request.addEventListener("load", function (event) {
+        if (event.target.status === 200) {
+            var scoreHtml = Handlebars.templates.table(userInfo)
+            scoreGrid.insertAdjacentHTML("beforeend", scoreHtml)
+        } else {
+            alert("Failed to add score; error:\n\n" + event.target.response)
+        }
+    })
+
+    request.send(requestBody)
 
     closeModal()
 }
