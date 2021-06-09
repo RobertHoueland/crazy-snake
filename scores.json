@@ -1,4 +1,10 @@
-{
-  "username": "test",
-  "score": 0
-}
+[
+  {
+    "name": "sam",
+    "score": 10000
+  },
+  {
+    "name": "phil",
+    "score": 1
+  }
+]

@@ -6,7 +6,6 @@ var fs = require("fs")
 
 // Use server to actually take in player scores.
 var scoreData = require("./scores.json")
-const { fstat } = require("fs")
 
 var app = express()
 var port = process.env.PORT || 3000
@@ -25,13 +24,14 @@ app.get("/", function (req, res, next) {
 
 app.post("/submit", function (req, res) {
     var user = {
-        username: req.body.name,
+        name: req.body.name,
         score: req.body.score,
     }
     if (user) {
+        scoreData.push(user)
         fs.writeFile(
             "./scores.json",
-            JSON.stringify(user, null, 2),
+            JSON.stringify(scoreData, null, 2),
             function (err) {
                 if (err) {
                     res.status(500).send(
