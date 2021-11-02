@@ -1,5 +1,3 @@
-# crazy-snake
-
 ## CS290 Final Project: Crazy Snake
 ### https://crazysnake-game.herokuapp.com/
 **Robert Houeland, Phillip Dinh, Sam Knox, Omar Mejia**
